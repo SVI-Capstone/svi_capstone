@@ -54,7 +54,7 @@ Centers for Disease Control and Prevention/ Agency for Toxic Substances and Dise
 [Dallas County COVID Data](https://www.dallascounty.org/covid-19/)
 Daily COVID counts by zipcode
 
-[vLookup in Python ]:(https://www.geeksforgeeks.org/how-to-do-a-vlookup-in-python-using-pandas/)
+[vLookup in Python ](https://www.geeksforgeeks.org/how-to-do-a-vlookup-in-python-using-pandas/)
 - Converts FIPS to zipcode
 
 ## Creators
