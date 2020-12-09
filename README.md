@@ -22,12 +22,12 @@ While SVI was designed to help city goverments repsond to emergency situations, 
   ---                                ---
 | **Terms**                         | **Definition**        |
 | ---                               | ---                   |
-| Social Vulnerability Index (SVI)  | A predictive modelling technique investigating the relationship between a dependent (target) and independent variable (s) (predictor) |
-| FIPS                              |                       |
-| COVID - 19                        |                       |
-| Regression Model                  |                       |
-| Target Variable                   | Dependent variable: The feature the model predicts ***(COVID Infection Count)***                     |
-| Predictive Variabvle              | Independent variable: The features used to create the prediction                                     |
+| Social Vulnerability Index (SVI)  | A composite of 15 U.S. census variables to help local officials identify communities that may need support before, during, or after disasters. |
+| Federal Information Processing Standards (FIPS) | A set of standards that describe document processing, encryption algorithms and other information technology standards for use within non-military government agencies and by government contractors and vendors who work with the agencies. |
+| COVID - 19 | Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus |
+| Regression Model | A predictive modelling technique investigating the relationship between a dependent (target) and independent variable (s) (predictor)                      
+| Target Variable                   | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
+| Predictive Variabvle              | Independent variable: The features used to create the prediction |
 |                   |                       |
 |                   |                       |
   ---                     ---  
@@ -58,13 +58,13 @@ While SVI was designed to help city goverments repsond to emergency situations, 
 ## Sources
 
 [CDC's Social Vulnerability Index (SVI)](https://www.atsdr.cdc.gov/placeandhealth/svi/index.html)   
-Centers for Disease Control and Prevention/ Agency for Toxic Substances and Disease Registry/ Geospatial Research, Analysis, and Services Program. CDC Social Vulnerability Index 2018 Database Texas. Accessed on 12-8-2020.
+- Centers for Disease Control and Prevention/ Agency for Toxic Substances and Disease Registry/ Geospatial Research, Analysis, and Services Program. CDC Social Vulnerability Index 2018 Database Texas. Accessed on 12-8-2020.
 
 [City of San Antonio: Bexar County Covid Data](https://cosacovid-cosagis.hub.arcgis.com/datasets/bexar-county-covid-19-data-by-zip-code/data?geometry=-100.416%2C29.018%2C-96.502%2C29.855&showData=true)   
-Daily COVID counts by ZIP  
+- Daily COVID counts by ZIP  
 
 [Dallas County COVID Data](https://www.dallascounty.org/covid-19/)   
-Daily COVID counts by ZIP   
+- Daily COVID counts by ZIP   
 
 [vLookup in Python ](https://www.geeksforgeeks.org/how-to-do-a-vlookup-in-python-using-pandas/)   
 - Converts FIPS to ZIP
