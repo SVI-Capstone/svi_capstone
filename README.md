@@ -1,11 +1,37 @@
 # Project Title
 ## About the Project
+
+The purpose of this project is to discover if a city’s SVI score is an accurate predictor of Covid infection rates. The purpose of the SVI is to predict which communities within a city (or county) will need the most help in the event of a disaster, thus we are trying to determine if the SVI is indeed acting currently as a good predictor for a pandemic type disaster, like Covid is. Once we discover if SVI is a good predictor or not of Covid infection rates, then we will be able to break down the SVI index further and search for sub-components which may act as a better predictor for covid transmission than the overall SVI index. We could then use those SVI flags to predict where Covid infections would be the highest based on the SVI features we use, and test to see if that model we create is more accurate than simply using the base SVI index by itself to predict Covid infection. (Draft) 
+
 ### Goals
+
+
 ### Background
+The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (citation). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability.  This socre is calculated by first ranking every census tract, in every country, in every state, in the United States.  Those ranked tracks are then broken up to 4 themes (  socioeconomic status, household composition and disability,  minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
+
+SVI 
+
+
 ### Deliverables
+
 ### Acknowledgments
+
 ## Data Dictionary
+  ---                    ---
+| **Terms**             | **Definition**        |
+| ---                   | ---                   |
+|                       |                       |
+  ---                     ---  
+
+
 ## Initial Thoughts & Hypotheses
+
+- Does the SVI score correlate to the number of COVID cases (or cases/10K) per zipcode?
+   -San Anotnio
+   -Dallas
+
+- Is SVI better at predicting COVID cases in cities with overall high/med/low SVI scores?
+
 ### Thoughts
 ### Hypotheses
 ## Project Steps
