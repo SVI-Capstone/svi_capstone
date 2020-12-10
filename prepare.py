@@ -24,6 +24,12 @@ def prepare_data (df):
     """
     This function identfies colums in the acqure df we wish to keep, renames those columns and drops 4 null values
     """
+
+    # Creating a new column which assigns the % of cases by zip code to the correct % of addresses each census tract "owns"
+    df['tract_cases_per_100k'] = df.casesp100000 * df.address_ratio
+
+
+
     # Columns we want to keep (can be changed as needed):
     columns_to_keep = ['st_abbr',
                     'county',
@@ -53,7 +59,7 @@ def prepare_data (df):
                     'zip',
                     'population',
                     'positive',
-                    'casesp100000']
+                    'tract_cases_per_100k']
     # Using list comprehension to create a dataframe. Because there are more columns we want to remove than we want to keep, I simply iterated thru the list made above and in essence dropped all columns we didn't want to keep. Easier than using pd.drop.
     df = df[[c for c in df.columns if c in columns_to_keep]]
     
@@ -87,16 +93,16 @@ def prepare_data (df):
     df = df[df.raw_svi > 0]
 
     # Agg all columns by zipcode
-    groupdf = df.groupby(['zip'])['raw_svi', 'f_soci_total',  'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'case_p_hunth'].\
-                        agg({'raw_svi': ['min', 'max', 'mean'], 'f_soci_total' : ['sum'], 'f_comp_total': ['sum'], \
-                             'f_status_total': ['sum'], 'f_trans_total': ['sum'], 'all_flags_total': ['sum'], 'case_p_hunth': ['first']})
+    # groupdf = df.groupby(['zip'])['raw_svi', 'f_soci_total',  'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'case_p_hunth'].\
+    #                     agg({'raw_svi': ['min', 'max', 'mean'], 'f_soci_total' : ['sum'], 'f_comp_total': ['sum'], \
+    #                          'f_status_total': ['sum'], 'f_trans_total': ['sum'], 'all_flags_total': ['sum'], 'case_p_hunth': ['first']})
 
 
     # Unstacking the columns index
-    groupdf.columns = [' '.join(col).strip() for col in groupdf.columns.values]
+    # groupdf.columns = [' '.join(col).strip() for col in groupdf.columns.values]
     
     # Replacing the spaces in the column names with "_"
-    groupdf.columns = groupdf.columns.str.replace(" ", "_")
+    # groupdf.columns = groupdf.columns.str.replace(" ", "_")
     
     # Categorizing (or binning) the raw_svi_mean scores
     groupdf['bin_svi'] = pd.cut(groupdf.raw_svi_mean, bins = [0, .27, .5, .75, 1], labels = ['low', 'low_mod', 'mod_high', 'high'])
