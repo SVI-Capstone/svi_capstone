@@ -39,15 +39,15 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Initial Thoughts & Hypotheses
 
-- Does the SVI score correlate to the number of COVID cases (or cases/10K) observed per zipcode?
+1. Does the SVI score correlate to the number of COVID cases (or cases/10K) observed per zipcode?
    -San Anotnio
    -Dallas
 
-- Is SVI better at predicting COVID cases in zipcodes with overall high/med/low SVI scores?
+2. Is SVI better at predicting COVID cases in zipcodes with overall high/med/low SVI scores?
 
-- Are the individual components of SVI better at predicting COVID cases then the aggregate score?
+3. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
 
-- Is this pattern different from other cities in TX (Comporable size and SVI demigraphics) ?
+4. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics) ?
 
 ## Project Steps
 
