@@ -20,7 +20,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 ############################################################# Prepare Function #############################################################
 
-def prepare_data (df):
+def prepare_data(df):
     """
     This function identfies colums in the acqure df we wish to keep, renames those columns and drops 4 null values
     """
@@ -114,6 +114,12 @@ def prepare_data (df):
 # To use:
 # df = pd.read_csv('full_san_antonio.csv', index_col = 0)
 # df = prepare_data(df)
+
+def run(df):
+    print("Prepare: preparing data files...")
+    df = prepare_data(df)
+    print("Prepare: Completed!")
+    return df
 
 ############################################################# Split Function #############################################################
 
