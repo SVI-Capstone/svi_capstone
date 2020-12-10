@@ -85,8 +85,25 @@ def prepare_data (df):
     # There are 4 rows which are military bases according to the tract information. These rows all return -999 for all the flags and svi score, thus they are not useful for our analysis. Since 4 rows only 1% of our total rows, we opted to simply drop those 4 rows.
 
     df = df[df.raw_svi > 0]
-    return df
 
+    # Agg all columns by zipcode
+    groupdf = df.groupby(['zip'])['raw_svi', 'f_soci_total',  'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'case_p_hunth'].\
+                        agg({'raw_svi': ['min', 'max', 'mean'], 'f_soci_total' : ['sum'], 'f_comp_total': ['sum'], \
+                             'f_status_total': ['sum'], 'f_trans_total': ['sum'], 'all_flags_total': ['sum'], 'case_p_hunth': ['first']})
+
+
+    # Unstacking the columns index
+    groupdf.columns = [' '.join(col).strip() for col in groupdf.columns.values]
+    
+    # Replacing the spaces in the column names with "_"
+    groupdf.columns = groupdf.columns.str.replace(" ", "_")
+    
+    # Categorizing (or binning) the raw_svi_mean scores
+    groupdf['bin_svi'] = pd.cut(groupdf.raw_svi_mean, bins = [0, .27, .5, .75, 1], labels = ['low', 'low_mod', 'mod_high', 'high'])
+    groupdf['rank_svi'] = pd.cut(groupdf.raw_svi_mean, bins = [0, .27, .5, .75, 1], labels = [4, 3, 2, 1])
+    
+    return groupdf
+    
 # To use:
 # df = pd.read_csv('full_san_antonio.csv', index_col = 0)
 # df = prepare_data(df)
