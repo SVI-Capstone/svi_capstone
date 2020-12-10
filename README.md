@@ -32,25 +32,25 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | Regression Model | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
 | Target Variable | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
 | Predictive Variable | Independent variable: The features used to create the prediction |
-| f_pov | Flag - the percentage of person in povery is in the 90th percentile nationally (1= yes, 0 = no)                      | f_unemp | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
-| f_pci | Flag - per capita income is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_nohsdp | Flag - the percentage of persons with no high school diploma is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_theme1 | Sum of flages for Socioeconomic Status theme|
-| f_age65 | Flag - the percentage of persons aged 65 and older is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_age17 | Flag - the percenage of persons aged 17 and younger is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_disabl | Flag - the percentage of persons with a disability is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_sngpnt | Flag - the percentage of single parent households is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_theme 2 | Sum of flags for Household Compensation theme |
-| f_minrty | Flag - the percentage of minority is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_limeng | Flag - the perentage those with limited English is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_theme3 | Sum of flags for Minority Status/Language theme |
-| f_munit | Flag = the percentage of households in mulit-unit housing in the 90th percentile nationally (1= yes, 0 = no)|
-| f_mobile | Flag - the percentage of mobile homes is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_crowd | Flag - the percentage of crowded households is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_noveh | Flag - the percentage of households with no vehicles is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_groupq | Flag - the percentage of persons in institutionalized group quarters is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_theme4 | Sum of flags for Housing Type/Transportation theme |
-| f_total | Sum of flags for the four themes |
+| f_pov_soci | Flag - the percentage of person in povery is in the 90th percentile nationally (1= yes, 0 = no)                                                   | f_unemp_soci | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
+| f_pci_soci | Flag - per capita income is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_nohsdp_soci | Flag - the percentage of persons with no high school diploma is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_soci_total | Sum of flages for Socioeconomic Status theme|
+| f_age65_comp | Flag - the percentage of persons aged 65 and older is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_age17_comp | Flag - the percenage of persons aged 17 and younger is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_disabl_comp | Flag - the percentage of persons with a disability is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_sngpnt_comp | Flag - the percentage of single parent households is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_comp_total | Sum of flags for Household Compensation theme |
+| f_minrty_status | Flag - the percentage of minority is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_limeng_status  | Flag - the perentage those with limited English is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_status_total | Sum of flags for Minority Status/Language theme |
+| f_munit_trans | Flag = the percentage of households in mulit-unit housing in the 90th percentile nationally (1= yes, 0 = no)|
+| f_mobile_trans | Flag - the percentage of mobile homes is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_crowd_trans | Flag - the percentage of crowded households is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_noveh_trans | Flag - the percentage of households with no vehicles is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_groupq_trans | Flag - the percentage of persons in institutionalized group quarters is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_trans_total | Sum of flags for Housing Type/Transportation theme |
+| all_flags_total| Sum of flags for the four themes |
   ---                     ---  
 
 
