@@ -1,5 +1,7 @@
 #### Environment Imports #####
 import pandas as pd 
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
 #### Functions #####
@@ -43,13 +45,26 @@ def get_HUD(citydf):
     return merge_zip
 
 
+def compile_san_antonio_data():
+    '''
+    This function gets the data from the 3 .csv files and compiles them together
+    '''
+    # get SVI data
+    svidf = get_svi_data()
+    # get the Bexar data
+    bexar = get_san_antonio_data()
+    # create the merge dataframe
+    merge_bexar = bexar[['zip', 'population', 'positive', 'casesp100000']]
+    # get the HUD data
+    merge_zip = get_HUD(bexar)  
+    # create new df merging svi and 2nd merge zip file on tract
+    svi_zip = pd.merge(svidf, merge_zip, on='tract', how='left')
+    svi_zip_cases = pd.merge(svi_zip, merge_bexar, on='zip', how='left')
+    return svi_zip_cases
 
 
-# def compile_data():
-#     '''
-#     This function gets the data from .csv 
-#     '''
-#     # create new df merging svi and 2nd merge zip file on tract
-# svi_zip2 = pd.merge(svidf, merge_zip3, on='tract', how='left')
-# # the svi data, and the HUD crosswalk table,
-# #     then joins these together. Zip code is assigned by highest % of addresses.
+def run():
+    print("Acquire: compiling raw data files...")
+    df = compile_san_antonio_data()
+    print("Acquire: Completed!")
+    return df
