@@ -53,10 +53,8 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | f_trans_total | Sum of flags for Housing Type/Transportation theme |
 | all_flags_total| Sum of flags for the four themes |
 | tract_cases_per_100k | Derrived density of cases per Cencus Tract |
-| bin_svi | raw_svi percentages broken up in to categories based on CDC precident 
-            *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
-| rank_svi | raw_svi percentages broken up in to categories based on bin_svi 
-            *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
+| bin_svi | raw_svi percentages broken up in to categories based on CDC precident  *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
+| rank_svi | raw_svi percentages broken up in to categories based on bin_svi  *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
   ---                     ---  
 
 
