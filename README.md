@@ -5,6 +5,9 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 
 ### Goals
 
+*Goal # 1* - To evaluate the association between SVI score and COVID case count in San Antonio, TX  
+
+*Goal # 2* - To build a model based SVI score component features that can predict COVID cases by zip code with in San Antonio, TX    
 
 ### Background
 The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (Citation CDC Website). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This socre is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
@@ -17,6 +20,7 @@ While SVI was designed to help city goverments repsond to emergency situations, 
 3. 5-10 min presentation
 
 ### Acknowledgments
+Thank you to the Codeup faculty and staff that have helped us every step of the way.  Also thank you to our friends and family who have supported us on this 22 week journey.  
 
 ## Data Dictionary
   ---                                ---
