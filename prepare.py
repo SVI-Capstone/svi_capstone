@@ -31,10 +31,11 @@ def prepare_data (df):
 
 
     # Columns we want to keep (can be changed as needed):
-    columns_to_keep = ['st_abbr',
-                    'county',
+    columns_to_keep = [
+                    # 'st_abbr',
+                    # 'county',
                     'tract',
-                    'area_sqmi',
+                    # 'area_sqmi',
                     'rpl_themes',
                     'f_pov',
                     'f_unemp',
@@ -57,8 +58,8 @@ def prepare_data (df):
                     'f_theme4',
                     'f_total',
                     'zip',
-                    'population',
-                    'positive',
+                    # 'population',
+                    # 'positive',
                     'tract_cases_per_100k']
     # Using list comprehension to create a dataframe. Because there are more columns we want to remove than we want to keep, I simply iterated thru the list made above and in essence dropped all columns we didn't want to keep. Easier than using pd.drop.
     df = df[[c for c in df.columns if c in columns_to_keep]]
