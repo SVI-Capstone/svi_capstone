@@ -1,7 +1,7 @@
 # Project Title
 
 ## About the Project
-The purpose of this project is to discover if a city’s SVI score is an accurate predictor of Covid infection rates. The purpose of the SVI is to predict which communities within a city (or county) will need the most help in the event of a disaster, thus we are trying to determine if the SVI is indeed acting currently as a good predictor for a pandemic type disaster, like Covid is. Once we discover if SVI is a good predictor or not of Covid infection rates, then we will be able to break down the SVI index further and search for sub-components which may act as a better predictor for covid transmission than the overall SVI index. We could then use those SVI flags to predict where Covid infections would be the highest based on the SVI features we use, and test to see if that model we create is more accurate than simply using the base SVI index by itself to predict Covid infection. (Draft) 
+The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count in San Antonio, Texas. Feature engineering will evaluate the predictive value of categorical SVI score, SVI flags, and change in SVI. The goal is to determine which features best predict COVID cases by zip code with in San Antonio.
 
 ### Goals
 
