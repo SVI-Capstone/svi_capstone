@@ -25,9 +25,9 @@ While SVI was designed to help city goverments repsond to emergency situations, 
 | Social Vulnerability Index (SVI)  | A composite of 15 U.S. census variables to help local officials identify communities that may need support before, during, or after disasters. |
 | Federal Information Processing Standards (FIPS) | A set of standards that describe document processing, encryption algorithms and other information technology standards for use within non-military government agencies and by government contractors and vendors who work with the agencies. |
 | COVID - 19 | Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus |
-| Regression Model | A predictive modelling technique investigating the relationship between a dependent (target) and independent variable (s) (predictor)                      
+| Regression Model | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
 | Target Variable                   | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
-| Predictive Variabvle              | Independent variable: The features used to create the prediction |
+| Predictive Variable               | Independent variable: The features used to create the prediction |
 |                   |                       |
 |                   |                       |
   ---                     ---  
@@ -43,7 +43,7 @@ While SVI was designed to help city goverments repsond to emergency situations, 
 
 - Are the individual components of SVI better at predicting COVID cases then the aggregate score?
 
-- If the pattern in other cities is different from San Antonio then the historic segregation is a significant factor in impact of COVID
+- Is this pattern different from other cities in TX (Comporable size and SVI demigraphics) ?
 
 ## Project Steps
 ### Acquire
