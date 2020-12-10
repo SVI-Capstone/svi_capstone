@@ -122,9 +122,9 @@ def split(df, target_var):
     This splits the dataframe for train, validate, and test, and creates X and y dataframes for each
     '''
     # split df into train_validate (80%) and test (20%)
-    train_validate, test = train_test_split(df, test_size=.20, random_state = 123, stratify=df.svi_cat)
+    train_validate, test = train_test_split(df, test_size=.20, random_state = 123, stratify=df.bin_svi)
     # split train_validate into train(70% of 80% = 56%) and validate (30% of 80% = 24%)
-    train, validate = train_test_split(train_validate, test_size=.25, random_state = 123, stratify=train_validate.svi_cat)
+    train, validate = train_test_split(train_validate, test_size=.25, random_state = 123, stratify=train_validate.bin_svi)
     
     # create X_train by dropping the target variable 
     X_train = train.drop(columns=[target_var])
