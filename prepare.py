@@ -122,7 +122,7 @@ def split(df, target_var):
 
 ############################################################# Scale Function #############################################################
 
-def scale_data(X_train, X_validate, X_test)
+def scale_data(X_train, X_validate, X_test):
     """
     This function is used to scale the numeric data using a MinMaxScaler
     """
