@@ -75,6 +75,17 @@ SVI data was acquired from the CDC's website. COVID data for San Antonio and Dal
 
 ### Prepare
 
+This function identfies colums in the acqure df we wish to keep, renames those columns and drops 4 null values
+
+Using list comprehension to create a dataframe. Because there are more columns we want to remove than we want to keep, I simply iterated thru the list made above and in essence dropped all columns we didn't want to keep. Easier than using pd.drop.
+
+Renaming the columns:
+
+Dropping rows:
+    # There are 4 rows which are military bases according to the tract information. These rows all return -999 for all the flags and svi score, thus they are not useful for our analysis. Since 4 rows only 1% of our total rows, we opted to simply drop those 4 rows.
+    
+- Agg all columns by zipcode (Modify 
+
 ### Explore
 
 ### Model
