@@ -1,7 +1,7 @@
 # Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections in San Antonio Texas
 
 ## About the Project
-The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count in San Antonio, Texas. Feature engineering will evaluate the predictive value of categorical SVI score, SVI flags, and change in SVI. The goal is to determine which features best predict COVID cases by zip code with in San Antonio.
+The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count in San Antonio, Texas. Feature engineering will evaluate the predictive value of categorical SVI score, SVI flags, and change in SVI. Features from this measure will be incorporated into a predictive model that can be used to guide recovery resource prioritization. 
 
 ### Goals
 
