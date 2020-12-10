@@ -24,9 +24,9 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Data Dictionary
   ---                                ---
-| **Terms**                         | **Definition**        |
-| ---                               | ---                   |
-| Social Vulnerability Index (SVI)  | A composite of 15 U.S. census variables to help local officials identify communities that may need support before, during, or after disasters. |
+| **Terms**                        | **Definition**        |
+| ---                              | ---                   |
+| Social Vulnerability Index (SVI) | A composite of 15 U.S. census variables to help local officials identify communities that may need support before, during, or after disasters. |
 | Federal Information Processing Standards (FIPS) | A set of standards that describe document processing, encryption algorithms and other information technology standards for use within non-military government agencies and by government contractors and vendors who work with the agencies. |
 | COVID - 19 | Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus |
 | Regression Model | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
@@ -67,18 +67,22 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 4. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics) ?
 
 ## Project Steps
-
 ### Acquire
 
 SVI data was acquired from the CDC's website. COVID data for San Antonio and Dallas was downloaded from the cities respective COVID data web portals. In order to merge the data programatic solutions were developed to translate federal FIPS codes in to discernable local Zip codes.  HUD crosswalk provided a guide to transform the data, however, HUD info is complicated as there are many census tracts that may be in one zip code, or they may overlap into multiple other Zip code areas. In order to progratically solve this probelm we found the Zip code that accounted for the highest percentage of addresses within the tract and assigned that as the sole Zip code for the tract. This allowed us to merge the tables by matching to tract then Zip code linking all of the data together in a signle dataframe for prepare.
 
 
 ### Prepare
+
 ### Explore
+
 ### Model
+
 ### Conclusions
+
 ## How to Reproduce
 ### Steps
+
 ### Tools & Requirements
 
 ## Sources
