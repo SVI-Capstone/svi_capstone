@@ -46,7 +46,12 @@ While SVI was designed to help city goverments repsond to emergency situations, 
 - Is this pattern different from other cities in TX (Comporable size and SVI demigraphics) ?
 
 ## Project Steps
+
 ### Acquire
+
+SVI data was acquired from the CDC's website. COVID data for San Antonio and Dallas was downloaded from the cities respective COVID data web portals. In order to merge the data programatic solutions needed to be developed to translate federal FIPS codes in to discernable local Zip codes.  HUD crosswalk was used as a guide to transform the data, however HUD info is complicated as there are many census tracts that may be in one zip code, or they may overlap into multiple other Zip code areas. Examination showed the same FIPS number assigned to multiple zip codes and multiple Zip codes assigned to the same FIPS number.  In order to progratically solve this probelm we first sorteed the HUD info by zip code and total percentage of addresses that tract accounted for within the Zip code. Evaulating the results it was observed that 54% was the cutoff point where there were no duplicated tract values in the dataset, which left left 21 census tracts unassigned.  Once the tracts were identifed we were then able to look up the missing census tract numbers and assigned them to the zip code that with the highest % of addresses in that tract. Finally identified tracts were merged. The SVI data on tract adding the zip code to the dataset, and then merged the Bexar cases data to this dataframe on Zip. 
+
+
 ### Prepare
 ### Explore
 ### Model
