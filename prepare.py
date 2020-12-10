@@ -16,12 +16,13 @@ from sklearn.preprocessing import MinMaxScaler
 import sklearn
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
 ############################################################# Prepare Function #############################################################
 
 def prepare_data (df):
-  """
-  This function identfies colums in the acqure df we wish to keep, renames those columns and drops 4 null values
-  """
+    """
+    This function identfies colums in the acqure df we wish to keep, renames those columns and drops 4 null values
+    """
     # Columns we want to keep (can be changed as needed):
     columns_to_keep = ['st_abbr',
                     'county',
