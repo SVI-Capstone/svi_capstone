@@ -53,8 +53,10 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | f_trans_total | Sum of flags for Housing Type/Transportation theme |
 | all_flags_total| Sum of flags for the four themes |
 | tract_cases_per_100k | Derrived density of cases per Cencus Tract |
-| bin_svi | raw_svi percentages broken up in to categories based on CDC precident *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
-| rank_svi | raw_svi percentages broken up in to categories based on bin_svi *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
+| bin_svi | raw_svi percentages broken up in to categories based on CDC precident 
+            *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
+| rank_svi | raw_svi percentages broken up in to categories based on bin_svi 
+            *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
   ---                     ---  
 
 
@@ -79,7 +81,7 @@ We acquired SVI data from the CDC's website amd downloaded COVID data for San An
 ### Wrangle
 
 *Prepare:*
-In order to prepare the df for exploration 29 features were selected and remaned for clarity. Four null rows associated with miliary bases were removed from the data frame according to the tract information. Finally we categorized (or binning) the raw_svi_mean scores in to a bin_svi column and a rank_svi column. The bin_svi coulmn returns a label (low, low-mod, mod-high, high) in relation to the raw_svi score, while the rank_svi column is a numeric represention of SVI (1 represetning a high score, 4 represetning a low score).
+In order to prepare the df for exploration 29 features were selected and remaned for clarity. Four null rows associated with miliary bases were removed from the data frame according to the tract information. We then categorized (or binning) the raw_svi_mean scores in to a bin_svi column and a rank_svi column. The bin_svi coulmn returns a label (low, low-mod, mod-high, high) in relation to the raw_svi score, while the rank_svi column is a numeric represention of SVI (1 represetning a high score, 4 represetning a low score). Finally we broke svi_bin in to dummy variable columns for modeling. 
 
 *Split/Scale*
 Prepaed data was split using...
