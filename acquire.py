@@ -40,8 +40,8 @@ def get_HUD(citydf):
     zipsdf.columns = [' '.join(col).strip() for col in zipsdf.columns.values]
     zipsdf = zipsdf.reset_index()
     # create dataframe of only items to merge with svi data
-    merge_zip = zipsdf[['tract', 'zip first']]
-    merge_zip = merge_zip.rename(columns={'zip first':'zip'})
+    merge_zip = zipsdf[['tract', 'zip first', 'tot_ratio max']]
+    merge_zip = merge_zip.rename(columns={'zip first':'zip', 'tot_ratio max':'address_ratio'})
     return merge_zip
 
 
