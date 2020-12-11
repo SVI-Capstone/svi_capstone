@@ -72,21 +72,11 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Project Steps
 ### Acquire
-
 We acquired SVI data from the CDC's website amd downloaded COVID data for San Antonio and Dallas from the cities respective COVID data web portals. In order to merge the data we developed programatic solutions to translate federal FIPS codes in to discernable local Zip codes.  The HUD crosswalk provided a guide to transform the data, however, HUD info is complicated as there are many census tracts that may be in one zip code, or they may overlap into multiple other Zip code areas. In order to progratically solve this probelm we found the Zip code that accounted for the highest percentage of addresses within the tract and assigned that as the sole Zip code for the tract. This allowed us to merge the tables by matching to tract then Zip code linking all of the data together in a signle dataframe for prepare. The ratio of addresses for the census tract was then used to calculate a cases per 100K measure for each tract.
 
 
 ### Wrangle
-
-*Prepare:*
-In order to prepare the df for exploration 29 features were selected and remaned for clarity. Four null rows associated with miliary bases were removed from the data frame according to the tract information. We then categorized (or binning) the raw_svi_mean scores in to a bin_svi column and a rank_svi column. The bin_svi coulmn returns a label (low, low-mod, mod-high, high) in relation to the raw_svi score, while the rank_svi column is a numeric represention of SVI (1 represetning a high score, 4 represetning a low score). Finally we broke svi_bin in to dummy variable columns for modeling. 
-
-*Split/Scale*
-Prepaed data was split using...
-scaled using ....
-return .....
-shape...
-
+In order to prepare the df for exploration 29 features were selected and remaned for clarity. Four null rows associated with miliary bases were removed from the data frame according to the tract information. We then categorized (or binning) the raw_svi_mean scores in to a bin_svi column and a rank_svi column. The bin_svi coulmn returns a label (low, low-mod, mod-high, high) in relation to the raw_svi score, while the rank_svi column is a numeric represention of SVI (1 represetning a high score, 4 represetning a low score). Finally we broke svi_bin in to dummy variable columns for modeling. Prepaed data was split in to train and test and cross validated using (add function).  Numeric columms with numerals greater than 4 were scaled using sklearn's MinMaxScaler.  Six data frames were returned at then end of wrangle including *train_explore* for exploration and individual scaled data frames for modeling  *X_train_scaled, y_train, X_test_scaled, y_test*.
 
 ### Explore
 
