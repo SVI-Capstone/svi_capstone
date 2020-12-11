@@ -1,150 +1,145 @@
-import numpy as np
 import pandas as pd
-
-from datetime import datetime
-from sklearn.metrics import mean_squared_error
-from math import sqrt
-
-import matplotlib.pyplot as plt
+import numpy as np
 import seaborn as sns
-from pandas.plotting import register_matplotlib_converters
-
-import statsmodels.api as sm
-from statsmodels.tsa.api import Holt
+import matplotlib.pyplot as plt
+from math import sqrt
+from scipy import stats
 
 import warnings
 warnings.filterwarnings("ignore")
 
-import prepare
+from statsmodels.formula.api import ols
+from sklearn.metrics import mean_squared_error, r2_score, explained_variance_score
+from sklearn.feature_selection import f_regression, SelectKBest, RFE 
+from sklearn.linear_model import LinearRegression, LassoLars, TweedieRegressor
+from sklearn.preprocessing import PolynomialFeatures
+import explore
 
-######## time series #######
-def split_data(df):
-    '''splits into train, validate, test'''
-    train_size = int(len(df) * .5)
-    validate_size = int(len(df) * .3)
-    test_size = int(len(df) - train_size - validate_size)
-    validate_end_index = train_size + validate_size
 
-    # split into train, validation, test
-    train = df[: train_size]
-    validate = df[train_size : validate_end_index]
-    test = df[validate_end_index : ]
-    # print the shape of each df
-    train.shape, validate.shape, test.shape
-    return train, validate, test
-
-def sanity_check_split(df1, train, validate, test):
-    '''checks train, validate, test splits'''
-    # Does the length of each df equate to the length of the original df?
-    print('df lengths add to total:', len(train) + len(validate) + len(test) == len(df1))
-    # Does the first row of original df equate to the first row of train?
-    print('1st row of full df == 1st row train:', df1.head(1) == train.head(1))
-    # Is the last row of train the day before the first row of validate? And the same for validate to test?
-    print('\n Is the last row of train the day before the first row of validate? And the same for validate to test?')
-    print(pd.concat([train.tail(1), validate.head(1)]))
-    print(pd.concat([validate.tail(1), test.head(1)]))
-    # Is the last row of test the same as the last row of our original dataframe?
-    print('\n Is the last row of test the same as the last row of our original dataframe?')
-    print(pd.concat([test.tail(1), df1.tail(1)]))
-
-def chart_splits(train, validate, test):
-    for col in train.columns:
-        plt.plot(train[col])
-        plt.plot(validate[col])
-        plt.plot(test[col])
-        plt.ylabel(col)
-        plt.title(col)
-        plt.show()
-
-def evaluate(target_var, validate, predictions):
-    '''evaluate() will compute the Mean Squared Error and the Rood Mean Squared Error to evaluate'''
-    rmse = round(sqrt(mean_squared_error(validate[target_var], predictions[target_var])), 0)
-    return rmse
-
-def plot_and_eval(target_var, train, validate, predictions):
+def linear_reg_train(x_scaleddf, target):
     '''
-    plot_and_eval() will use the evaluate function and also plot train and test values with the predicted
-     values in order to compare performance.
+    runs linear regression algorithm
     '''
-    plt.figure(figsize = (12,4))
-    plt.plot(train[target_var], label='Train', linewidth=1)
-    plt.plot(validate[target_var], label='Validate', linewidth=1)
-    plt.plot(predictions[target_var])
-    plt.title(target_var)
-    rmse = evaluate(target_var, validate, predictions)
-    print(target_var, '-- RMSE: {:.0f}'.format(rmse))
-    plt.show()
+    lm = LinearRegression()
+    lm.fit(x_scaleddf, target)
+    y_hat = lm.predict(x_scaleddf)
 
-def create_eval_df():
-    # Create empty dataframe to store model results for comparison
-    eval_df = pd.DataFrame(columns=['model_type', 'target_var', 'rmse'])
-    return eval_df
+    LM_MSE = sqrt(mean_squared_error(target, y_hat))
+    return lm, y_hat, LM_MSE
 
-# function to store the rmse so that we can compare, note: need to run create_eval_df before this function
-def append_eval_df(eval_df, validate, predictions, model_type, target_var):
-    rmse = evaluate(target_var, validate, predictions)
-    d = {'model_type': [model_type], 'target_var': [target_var],
-        'rmse': [rmse]}
-    d = pd.DataFrame(d)
-    return eval_df.append(d, ignore_index = True)
+def get_baseline(y_train):
+    '''
+    gets baseline for y dataframe
+    '''
+    # determine Baseline to beat
+    rows_needed = y_train.shape[0]
+    # create array of predictions of same size as y_train.logerror based on the mean
+    y_hat = np.full(rows_needed, np.mean(y_train))
+    # calculate the MSE for these predictions, this is our baseline to beat
+    baseline = sqrt(mean_squared_error(y_train, y_hat))
+    print("Baseline:", baseline)
+    return baseline, y_hat
+
+def lasso_lars(x_scaleddf, target):
+    '''
+    runs Lasso Lars algorithm
+    ''' 
+    # Make a model
+    lars = LassoLars(alpha=1)
+    # Fit a model
+    lars.fit(x_scaleddf, target)
+    # Make Predictions
+    lars_pred = lars.predict(x_scaleddf)
+    # Computer root mean squared error
+    lars_rmse = sqrt(mean_squared_error(target, lars_pred))
+    return lars_rmse
+
+def polynomial(X_trainsdf, target):
+    '''
+    runs polynomial algorithm
+    ''' 
+    # Make a model
+    pf = PolynomialFeatures(degree=2)
+    # note: tried increasing degree to 4 but took forever to run and would probably overfit, retest if time permits
+    # Fit and Transform model
+    # to get a new set of features..which are the original features squared
+    X_train_squared = pf.fit_transform(X_trainsdf)
+    
+    # Feed new features in to linear model. 
+    lm_squared = LinearRegression(normalize=True)
+    lm_squared.fit(X_train_squared, target)
+    # Make predictions
+    lm_squared_pred = lm_squared.predict(X_train_squared)
+    # Compute root mean squared error
+    lm_squared_rmse = sqrt(mean_squared_error(target, lm_squared_pred))
+    return lm_squared_rmse
 
 
-def last_observed_predictions(train, validate):
-    '''get last observed value and set that as prediction for all in validate'''
-    consumption = train['Consumption'][-1:][0]
-    wind = train['Wind'][-1:][0]
-    solar = train['Solar'][-1:][0]
-    calc_windsolar = train['calc_windsolar'][-1:][0]
-    # get preditions
-    yhat_df = pd.DataFrame({'Consumption': [consumption], 'Wind': [wind], 'Solar': [solar], 
-                            'calc_windsolar': [calc_windsolar]}, index = validate.index)
-    return yhat_df
+def poly_val_test(X_train_scaled, X_validate_scaled, y_train, y_validate):
+    '''
+    runs polynomial algorithm for validate and test dataframes
+    needs to be fixed/evaluated, should be combined with above and above needs to return transformed
+    for later use
+    ''' 
+    # Make a model
+    pf = PolynomialFeatures(degree=2)
+    X_train_squared = pf.fit_transform(X_train_scaled)
+    X_validate_squared = pf.transform(X_validate_scaled)
+    #X_test_squared = pf.transform(X_test_scaled)
+    # Feed new features in to linear model. 
+    lm_squared = LinearRegression(normalize=True)
+    lm_squared.fit(X_train_squared, y_train)
+    
+    # Make Predictions
+    lm_pred_train = lm_squared.predict(X_train_squared)
+    lm_pred_val = lm_squared.predict(X_validate_squared)
 
-def plot_pred_values(train, validate, predictions):
-    # plot predicted values
-    for col in train.columns:
-        plot_and_eval(col, train, validate, predictions)
+    # Compute root mean squared error
+    lm_rmse_train = sqrt(mean_squared_error(y_train, lm_pred_train))
+    lm_rmse_val = sqrt(mean_squared_error(y_validate, lm_pred_val))
+    print('RMSE train=', lm_rmse_train)
+    print('RMSE validate=', lm_rmse_val) 
+    return lm_rmse_train, lm_rmse_val 
 
 
-# create function for later repitition
-def make_predictions(consumption, wind, solar, calc_windsolar, validate):
-    yhat_df = pd.DataFrame({'Consumption': [consumption], 'Wind': [wind], 'Solar': [solar], 
-                            'calc_windsolar': [calc_windsolar]}, index = validate.index)
-    return yhat_df
+def linear_reg_vt(X_train_scaled, X_validate_scaled, y_train, y_validate):
+    '''
+    runs linear regression algorithm on validate and test
+    but fits model on train
+    '''
+    lm = LinearRegression()
+    lm.fit(X_train_scaled, y_train)
 
-def simple_average_predictions(train, validate):
-    # get average and use that to make predictions for all in validate
-    consumption = train['Consumption'].mean()
-    wind = train['Wind'].mean()
-    solar = train['Solar'].mean()
-    calc_windsolar = train['calc_windsolar'].mean()
-    yhat_df = make_predictions(consumption, wind, solar, calc_windsolar, validate)
-    return yhat_df
+    y_hat = lm.predict(X_validate_scaled)
 
-def rolling_avg_pred(train, validate, period):
-    # compute rolling average, 
-    period = period
-    consumption = round(train['Consumption'].rolling(period).mean().iloc[-1], 1)
-    wind = round(train['Wind'].rolling(period).mean().iloc[-1], 1)
-    solar = round(train['Solar'].rolling(period).mean().iloc[-1], 1)
-    calc_windsolar = round(train['calc_windsolar'].rolling(period).mean().iloc[-1], 1)
+    LM_RMSE = sqrt(mean_squared_error(y_validate, y_hat))
+    return LM_RMSE, y_hat    
 
-    yhat_df = make_predictions(consumption, wind, solar, calc_windsolar, validate)
-    return yhat_df
+def tweedie(X_train_scaled, y_train):
+    '''
+    runs tweedie algorithm
+    ''' 
+    # Make Model
+    tw = TweedieRegressor(power=0, alpha=.001) # 0 = normal distribution
+    # Fit Model
+    tw.fit(X_train_scaled, y_train)
+    # Make Predictions
+    tw_pred = tw.predict(X_train_scaled)
+    # Compute root mean squared error
+    tw_rmse = sqrt(mean_squared_error(y_train, tw_pred))
+    return tw_rmse
 
-def multiple_periods(list_periods, train, eval_df, validate):
-    periods = list_periods
-
-    for p in periods:
-        ROLL_pred = rolling_avg_pred(train, validate, period=p)
-        model_type = str(p) + 'd moving average'
-        for col in train.columns:
-            eval_df = append_eval_df(eval_df, validate, ROLL_pred, model_type = model_type, target_var = col)
-
-    return eval_df
-
-def Holts_plot(train):
-    for col in train.columns:
-        print(col,'\n')
-        _ = sm.tsa.seasonal_decompose(train[col].resample('D').mean()).plot()
-        plt.show()
+def tweedie_vt(X_train_scaled, X_validate_scaled, y_train, y_validate):
+    '''
+    runs tweedie algorithm on validate and test
+    but fits model on train
+    '''
+    # Make Model
+    tw = TweedieRegressor(power=0, alpha=0.001) # 0 = normal distribution
+    # Fit Model
+    tw.fit(X_train_scaled, y_train)
+    # Make Predictions
+    tw_pred = tw.predict(X_validate_scaled)
+    # Compute root mean squared error
+    tw_rmse = sqrt(mean_squared_error(y_validate, tw_pred))
+    return tw_rmse
