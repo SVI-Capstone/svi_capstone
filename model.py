@@ -13,7 +13,16 @@ from sklearn.metrics import mean_squared_error, r2_score, explained_variance_sco
 from sklearn.feature_selection import f_regression, SelectKBest, RFE 
 from sklearn.linear_model import LinearRegression, LassoLars, TweedieRegressor
 from sklearn.preprocessing import PolynomialFeatures
-import explore
+
+
+def feature_ranking(X_train_scaled, y_train):
+    lm = LinearRegression()
+    rfe = RFE(lm, 1)
+    rfe.fit(X_train_scaled, y_train)
+    ranks = rfe.ranking_
+    names = X_train_scaled.columns.tolist()
+    rankdf = pd.DataFrame({'features': names, 'rank': ranks}).set_index('rank').sort_values('rank')
+    return rankdf
 
 
 def linear_reg_train(x_scaleddf, target):
@@ -37,7 +46,7 @@ def get_baseline(y_train):
     y_hat = np.full(rows_needed, np.mean(y_train))
     # calculate the MSE for these predictions, this is our baseline to beat
     baseline = sqrt(mean_squared_error(y_train, y_hat))
-    print("Baseline:", baseline)
+    print("Baseline RMSE:", baseline)
     return baseline, y_hat
 
 def lasso_lars(x_scaleddf, target):
