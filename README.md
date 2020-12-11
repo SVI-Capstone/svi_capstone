@@ -111,6 +111,6 @@ After we were abe to infer with 99% confidence that there is a significant diffe
 
 ## Creators
 
-Corey Solitaire
-Ryvyn Young
-Luke Becker
+Corey Solitaire   
+Ryvyn Young   
+Luke Becker   
