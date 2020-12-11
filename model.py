@@ -33,17 +33,30 @@ def linear_reg_train(x_scaleddf, target):
     lm.fit(x_scaleddf, target)
     y_hat = lm.predict(x_scaleddf)
 
-    LM_MSE = sqrt(mean_squared_error(target, y_hat))
-    return lm, y_hat, LM_MSE
+    LM_RMSE = sqrt(mean_squared_error(target, y_hat))
+    return LM_RMSE
 
-def get_baseline(y_train):
+def get_baseline_mean(y_train):
     '''
-    gets baseline for y dataframe
+    Using mean gets baseline for y dataframe
     '''
     # determine Baseline to beat
     rows_needed = y_train.shape[0]
     # create array of predictions of same size as y_train.logerror based on the mean
     y_hat = np.full(rows_needed, np.mean(y_train))
+    # calculate the MSE for these predictions, this is our baseline to beat
+    baseline = sqrt(mean_squared_error(y_train, y_hat))
+    print("Baseline RMSE:", baseline)
+    return baseline, y_hat
+
+def get_baseline_median(y_train):
+    '''
+    Using median gets baseline for y dataframe
+    '''
+    # determine Baseline to beat
+    rows_needed = y_train.shape[0]
+    # create array of predictions of same size as y_train.logerror based on the median
+    y_hat = np.full(rows_needed, np.median(y_train))
     # calculate the MSE for these predictions, this is our baseline to beat
     baseline = sqrt(mean_squared_error(y_train, y_hat))
     print("Baseline RMSE:", baseline)
@@ -63,15 +76,13 @@ def lasso_lars(x_scaleddf, target):
     lars_rmse = sqrt(mean_squared_error(target, lars_pred))
     return lars_rmse
 
-def polynomial(X_trainsdf, target):
+def polynomial2(X_trainsdf, target):
     '''
     runs polynomial algorithm
     ''' 
     # Make a model
     pf = PolynomialFeatures(degree=2)
-    # note: tried increasing degree to 4 but took forever to run and would probably overfit, retest if time permits
-    # Fit and Transform model
-    # to get a new set of features..which are the original features squared
+    # Fit and Transform model to get a new set of features...which are the original features squared
     X_train_squared = pf.fit_transform(X_trainsdf)
     
     # Feed new features in to linear model. 
@@ -80,8 +91,8 @@ def polynomial(X_trainsdf, target):
     # Make predictions
     lm_squared_pred = lm_squared.predict(X_train_squared)
     # Compute root mean squared error
-    lm_squared_rmse = sqrt(mean_squared_error(target, lm_squared_pred))
-    return lm_squared_rmse
+    pf2_rmse = sqrt(mean_squared_error(target, lm_squared_pred))
+    return pf2_rmse
 
 
 def poly_val_test(X_train_scaled, X_validate_scaled, y_train, y_validate):
@@ -124,12 +135,12 @@ def linear_reg_vt(X_train_scaled, X_validate_scaled, y_train, y_validate):
     LM_RMSE = sqrt(mean_squared_error(y_validate, y_hat))
     return LM_RMSE, y_hat    
 
-def tweedie(X_train_scaled, y_train):
+def tweedie05(X_train_scaled, y_train):
     '''
     runs tweedie algorithm
     ''' 
     # Make Model
-    tw = TweedieRegressor(power=0, alpha=.001) # 0 = normal distribution
+    tw = TweedieRegressor(power=0, alpha=.5) # 0 = normal distribution
     # Fit Model
     tw.fit(X_train_scaled, y_train)
     # Make Predictions
