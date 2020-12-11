@@ -8,8 +8,6 @@ from scipy.stats import f_oneway, kruskal
 from math import sqrt
 from sklearn.cluster import KMeans
 import statsmodels.api as sm
-import summarize
-import prepare
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 pd.options.mode.chained_assignment = None  # default='warn'
