@@ -60,15 +60,15 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Initial Thoughts & Hypotheses
 
-1. Does the SVI score correlate to the number of COVID cases (or cases/10K) observed per cencus tract?
-   -San Anotnio
-   -Dallas
+1. Is there a correlation between the CDC's Range Category SVI Score and COVID-19 Infection Cases per 100k Individuals?
 
-2. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?
+2. Is there a correlation between raw_svi and cases per 100k?
 
-3. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
+3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?
 
-4. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics) ?
+4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
+
+5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)?
 
 ## Project Steps
 ### Acquire
@@ -79,6 +79,7 @@ We acquired SVI data from the CDC's website amd downloaded COVID data for San An
 In order to prepare the df for exploration 29 features were selected and remaned for clarity. Four null rows associated with miliary bases were removed from the data frame according to the tract information. We then categorized (or binning) the raw_svi_mean scores in to a bin_svi column and a rank_svi column. The bin_svi coulmn returns a label (low, low-mod, mod-high, high) in relation to the raw_svi score, while the rank_svi column is a numeric represention of SVI (1 represetning a high score, 4 represetning a low score). Finally we broke svi_bin in to dummy variable columns for modeling. Prepaed data was split in to train and test and cross validated using (add function).  Numeric columms with numerals greater than 4 were scaled using sklearn's MinMaxScaler.  Six data frames were returned at then end of wrangle including *train_explore* for exploration and individual scaled data frames for modeling  *X_train_scaled, y_train, X_test_scaled, y_test*.
 
 ### Explore
+Exploration focused on answering questions regarding the relationship between the CDC's range category SVI score and cases of COVID-19 per 100k.  After identifying that average number of cases per 100k individuals appearted to be distinct, statistical testing was preformed to validate this observation.  Variability in the data set requred us to preform a parametic ANOVA test (Kruskal).  The test was prefomred at a confidence interval of 99%, and returned a p-value less than alpha requiring us to reject the null hypothes and accept the alternate hypothesis that the average number of COVID-19 cases per 100k *is significantly different* across all CDC SVI range categories.  This conclusion then prompted us to verify our inital assumption and test for a statistically significant correlation between the raw_svi score and cases per 100k.  This verification was prefomred using the pearson's correlation coefficient test.  The test was preformed at a confidence interval of 99% and returned a r-value (correlation coefficent) of .55 and a p-value less than alpha requiring us to reject the null hypothes and accept the alternate hypothesis that there *is a statistically significant difference* betweeen raw_svi and cases per 100K. 
 
 ### Model
 
