@@ -24,6 +24,24 @@ def get_svi_data():
     svidf = svidf.rename(columns={'fips': 'tract'})
     return svidf
 
+def get_dallas_data():
+    '''
+    This function reads the Dallas case data, normalizes headers, and returns dataframe
+    '''
+    dallasdf = pd.read_csv('dallas_zip_covid_8_8_2020.csv')
+    dallasdf.columns = dallasdf.columns.str.lower()
+    dallasdf = dallasdf.rename(columns={'zipcode': 'zip'})
+    return dallasdf
+
+def get_dallas_svi_data():
+    '''
+    This function reads the Dallas svi data, normalizes headers, and returns dataframe
+    '''
+    svidf = pd.read_csv('dallas_2018_tract.csv')
+    svidf.columns = svidf.columns.str.lower()
+    svidf = svidf.rename(columns={'fips': 'tract'})
+    return svidf
+
 def get_HUD(citydf):
     '''
     This function gets the HUD Track to Zip crosswalk data, filters for the city zip codes,
@@ -32,7 +50,7 @@ def get_HUD(citydf):
     # create a list of zip codes for the city
     city_zip_list = citydf.zip.tolist()
     # import track to zip dataframe
-    zips = pd.read_csv('TRACT_ZIP_122018_78s_only.csv')
+    zips = pd.read_csv('TRACT_ZIP_122018.csv')
     # filter the zips df to only those in the city zip list
     zips = zips[zips.zip.isin(city_zip_list)]
     # aggregate the data frame to get the zip code with the max ratio by tract
@@ -62,6 +80,23 @@ def compile_san_antonio_data():
     svi_zip_cases = pd.merge(svi_zip, merge_bexar, on='zip', how='left')
     return svi_zip_cases
 
+
+def compile_dallas_data():
+    '''
+    This function gets the data from the 3 .csv files and compiles them together
+    '''
+    # get SVI data
+    svidf = get_dallas_svi_data()
+    # get the Dallas data
+    dallas = get_dallas_data()
+    # create the merge dataframe
+    merge_dallas = dallas[['zip', 'population', 'cases_per_100k']]
+    # get the HUD data
+    merge_zip = get_HUD(dallas)  
+    # create new df merging svi and 2nd merge zip file on tract
+    svi_zip = pd.merge(svidf, merge_zip, on='tract', how='left')
+    svi_zip_cases = pd.merge(svi_zip, merge_dallas, on='zip', how='left')
+    return svi_zip_cases
 
 def run():
     print("Acquire: compiling raw data files...")
