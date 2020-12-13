@@ -10,9 +10,9 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 *Goal # 2* - To build a model based SVI score component features that can predict COVID cases by census tract within San Antonio, TX    
 
 ### Background
-The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (Citation CDC Website). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This socre is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
+The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This socre is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
 
-While SVI was designed to help city goverments repsond to emergency situations, the efficacy of the systems has never been tested on in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (Citation WHO). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
+While SVI was designed to help city goverments repsond to emergency situations, the efficacy of the systems has never been tested on in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
 
 ### Deliverables
 1. Model to predict COVID 19 symptomatic infection by census tract in Bexar county
@@ -55,20 +55,23 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | tract_cases_per_100k | Derrived density of cases per Cencus Tract |
 | bin_svi | raw_svi percentages broken up in to categories based on CDC precident  *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
 | rank_svi | raw_svi percentages broken up in to categories based on bin_svi  *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
+| Mean Absolute Error (MAE) | MAE measures the average magnitude of the errors in a set of predictions, without considering their direction. It’s the average over the test sample of the absolute differences between prediction and actual observation where all individual differences have equal weight. |
   ---                     ---  
 
 
 ## Initial Thoughts & Hypotheses
 
-1. Is there a correlation between the CDC's Range Category SVI Score and COVID-19 Infection Cases per 100k Individuals?
+1. Is the average number of cases per 100k is the same across all CDC SVI Range Categories?
 
-2. Is there a correlation between raw_svi and cases per 100k?
+2. Is there a correlation between raw_svi and number of cases per 100k?
 
-3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?
+**3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?** (keep or remove)
 
 4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
 
-5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)?
+**5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)?** (up next)
+
+6. Is SVI a uesfull feature for predicting number of cases per 100k?
 
 ## Project Steps
 ### Acquire
@@ -84,10 +87,22 @@ Exploration focused on answering questions regarding the relationship between th
 After we were able to infer with 99% confidence that there is a significant difference between CDC SVI range categories we explored the distribution of cases and SVI scores.  When viewed with hue = svi_cat distinct boundaries were observed separating range categories.  Dispersed clustering within categories was observed with the greatest variation occurring in the 'low' SVI vulnerability category.  Several observations within this category were located outside the IQR and identified as outliers. It was decided to leave this data alone, but to further investigate the census tracts and zip codes associated in the next iteration.  Also examine was the relationships between the distribution of cases and number of specific SVI flags.  This plot displayed the same dispersed distribution of cases however the wide distribution of flags under the 'high' vulnerability category was unexpected, as the values ranged from 0-9 flags. This suggests that there is a wide range of flagged vulnerabilities even within the census tracts identified as highly vulnerable.  In the next iteration of research we would love to focus on answering questions such as the mean number of flags in San Antonio, the identification of census tracts with greater then 5 flags, and the geographic (census tract and zip code) distribution of those tracts.  
 
 ### Model
-Baseline for modeling was determined by plotting the histogram distribution of COVID-19 cases per 100k.  The skew observed in the distribution led us to use the median for this value instead of the mean **(verify which to use)**. Used cross validation due to limited size of dataset. Size of dataset limited by San Antonio number of census tracts. Three of the 4 models used all of the features in the dataset, one model used only the top4 features identified by RFE. Linear Regression, LassoLars, and 2 degree polynomial features used all features and a 2nd version of 2 degree polynomial was run with just the top4 features. Of these the LassoLars had the least MAE (mean absolute error) and was run on out of sample data (test). This model had nearly identical MAE when run on out of sample data, only a 0.7 difference in MAE. Overall this is a 25% improvement from mean baseline MAE.
+Baseline for modeling was determined by plotting the histogram distribution of COVID-19 cases per 100k.  The skew observed in the distribution led us to use the median for this value instead of the mean **(verify)**. Used cross validation due to limited size of dataset. Size of dataset limited by San Antonio number of census tracts. Three of the 4 models used all of the features in the dataset, one model used only the top 4 features identified by RFE. Linear Regression, LassoLars, and 2 degree polynomial features used all features and a 2nd version of 2 degree polynomial was run with just the top 4 features. Of these the LassoLars had the least MAE (mean absolute error) and was run on out of sample data (test). The MAE of a model is the mean of the absolute values of the individual prediction errors on over all instances in the test set. We chose to assess model preformance in terms of MAE due to its ease of interpretation.      
+This model had nearly identical MAE when run on out of sample data, only a 0.7 difference in MAE. This 25% improvement over baseline is interpreted as the ability to better predict COVID counts by census tract then simply assuming that every census tract mimiced the city's overall COVID count average.  
 
 ### Conclusions
 
+**1. Is the average number of cases per 100k is the same across all CDC SVI Range Categories?**
+- Based on Kruskal test we are 99% confident that there is a signifcant difference between the average number of cases across the CDC SVI range categories. This suggested that SVI was only only usefull in predicting voulnerable communities duirng this pandemic, but that SVI would become a good modeling feature.    
+
+**2. Is there a correlation between raw_svi and number of cases per 100k?**
+- Based on a Pearson R correlation test we are 99% confident that there is a correlation between raw_svi and number of cases per 100k.  This correlation does not suggest causation, yet discribes that a linear relationshp that exissts between the two features.  This relationship is characterized by a correlation coefficent of 0.55.  
+
+**3. Are the individual components of SVI better at predicting COVID cases then the aggregate score?**
+- No, the CDC range and the raw SVI are within 2 points of each other. The non-summary flags are 3 points worse than raw svi. The all features does well, but tends to overfit. The top 4 does well without overfitting
+
+**4. 6. Is SVI a uesfull feature for predicting number of cases per 100k?**
+- Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k 25% better then baseline.  In this case that means that it was able to imporve the cities ability to allocate funds/infastruture support during recovery with more granularity (popuation of tract/zip  X 0.25 ). 
 
 ## How to Reproduce
 ### Steps
@@ -110,6 +125,9 @@ Baseline for modeling was determined by plotting the histogram distribution of C
 
 [HUD](https://www.huduser.gov/portal/datasets/usps_crosswalk.html)
 - Schema to correlate ZIP to Census tracts, FIPS codes, and CBSA's
+
+[World Health Organization: COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+- WHO website and resource on COVID - 19
 
 ## Creators
 
