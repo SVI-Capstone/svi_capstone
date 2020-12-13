@@ -10,9 +10,9 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 *Goal # 2* - To build a model based SVI score component features that can predict COVID cases by census tract within San Antonio, TX    
 
 ### Background
-The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (Citation CDC Website). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This socre is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
+The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This socre is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
 
-While SVI was designed to help city goverments repsond to emergency situations, the efficacy of the systems has never been tested on in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (Citation WHO). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
+While SVI was designed to help city goverments repsond to emergency situations, the efficacy of the systems has never been tested on in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
 
 ### Deliverables
 1. Model to predict COVID 19 symptomatic infection by census tract in Bexar county
@@ -61,7 +61,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Initial Thoughts & Hypotheses
 
-1. Is there a correlation between the CDC's Range Category SVI Score and COVID-19 Infection Cases per 100k Individuals?
+1. Is the average number of COVID-19 cases per 100k is the same across all CDC SVI Range Categories?
 
 2. Is there a correlation between raw_svi and cases per 100k?
 
@@ -90,6 +90,17 @@ This model had nearly identical MAE when run on out of sample data, only a 0.7 d
 
 ### Conclusions
 
+*1. Is the average number of COVID-19 cases per 100k is the same across all CDC SVI Range Categories?*
+ - Based on Kruskal test we are 99% confident that there is a signifcant difference between the average number of cases across the CDC SVI range categories. This suggested that SVI was only only usefull in predicting voulnerable communities duirng this pandemic, but that SVI would become a good modeling feature.    
+
+*2. Is there a correlation between raw_svi and cases per 100k?*
+- 
+
+*3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?* 
+
+4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
+
+
 
 ## How to Reproduce
 ### Steps
@@ -112,6 +123,9 @@ This model had nearly identical MAE when run on out of sample data, only a 0.7 d
 
 [HUD](https://www.huduser.gov/portal/datasets/usps_crosswalk.html)
 - Schema to correlate ZIP to Census tracts, FIPS codes, and CBSA's
+
+[World Health Organization: COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
+- WHO website and resource on COVID - 19
 
 ## Creators
 
