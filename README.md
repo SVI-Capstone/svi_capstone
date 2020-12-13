@@ -61,15 +61,17 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Initial Thoughts & Hypotheses
 
-1. Is the average number of COVID-19 cases per 100k is the same across all CDC SVI Range Categories?
+1. Is the average number of cases per 100k is the same across all CDC SVI Range Categories?
 
-2. Is there a correlation between raw_svi and cases per 100k?
+2. Is there a correlation between raw_svi and number of cases per 100k?
 
-3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?
+**3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?** (keep or remove)
 
 4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
 
-5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)?
+**5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)?** (up next)
+
+6. Is SVI a uesfull feature for predicting number of cases per 100k?
 
 ## Project Steps
 ### Acquire
@@ -90,17 +92,17 @@ This model had nearly identical MAE when run on out of sample data, only a 0.7 d
 
 ### Conclusions
 
-*1. Is the average number of COVID-19 cases per 100k is the same across all CDC SVI Range Categories?*
- - Based on Kruskal test we are 99% confident that there is a signifcant difference between the average number of cases across the CDC SVI range categories. This suggested that SVI was only only usefull in predicting voulnerable communities duirng this pandemic, but that SVI would become a good modeling feature.    
+**1. Is the average number of cases per 100k is the same across all CDC SVI Range Categories?**
+- Based on Kruskal test we are 99% confident that there is a signifcant difference between the average number of cases across the CDC SVI range categories. This suggested that SVI was only only usefull in predicting voulnerable communities duirng this pandemic, but that SVI would become a good modeling feature.    
 
-*2. Is there a correlation between raw_svi and cases per 100k?*
-- 
+**2. Is there a correlation between raw_svi and number of cases per 100k?**
+- Based on a Pearson R correlation test we are 99% confident that there is a correlation between raw_svi and number of cases per 100k.  This correlation does not suggest causation, yet discribes that a linear relationshp that exissts between the two features.  This relationship is characterized by a correlation coefficent of 0.55.  
 
-*3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?* 
+**3. Are the individual components of SVI better at predicting COVID cases then the aggregate score?**
+- No, the CDC range and the raw SVI are within 2 points of each other. The non-summary flags are 3 points worse than raw svi. The all features does well, but tends to overfit. The top 4 does well without overfitting
 
-4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
-
-
+**4. 6. Is SVI a uesfull feature for predicting number of cases per 100k?**
+- Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k 25% better then baseline.  In this case that means that it was able to imporve the cities ability to allocate funds/infastruture support during recovery with more granularity (popuation of tract/zip  X 0.25 ). 
 
 ## How to Reproduce
 ### Steps
