@@ -112,8 +112,6 @@ def my_plotter(df, col_x, col_x_title, col_y, col_y_title, hue = "bin_svi"):
     You must input the x and y columns, x and y column names, the source dataframe, and the column by which the data has been binned.
     Note that col_x, col_y, col_x_title and col_y_title MUST BE STRINGS.
     '''
-    
-    col_x_str = str(col)
         
     p = sns.jointplot(x = col_x, y = col_y, data = df, hue = hue, height = 8, size = 10)
     p.fig.suptitle(f'{col_x_title} vs {col_y_title}', fontsize = 20, fontweight = 'bold')
