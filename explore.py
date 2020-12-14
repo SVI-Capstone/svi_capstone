@@ -81,6 +81,28 @@ def hist_case(series):
     plt.tight_layout()
     plt.show()
 
+
+def hist_case_title(series, title):
+    '''
+    This function will take in a series and produce a hisogram of the series' distribution. 
+    You must also provide a title for the chart produced by this function, which should be a separate variable outside of the function.
+    '''
+    plt.figure(figsize=(12,8))
+    plt.rc('font', size=16)
+    plt.hist(x = series, bins = 10, color = 'gray', edgecolor='k', alpha=0.45)
+    plt.title(title, y=1.02)
+    plt.xlabel('Number of Cases per 100,000',labelpad=20)
+    plt.ylabel('Case Count',labelpad=20)
+    plt.axvline(series.mean(), color = 'tab:orange', linestyle='dashed', linewidth=5)
+    min_ylim_v, max_ylim_v = plt.ylim()
+    plt.text(series.mean()*1.05, max_ylim_v*0.9, 'Mean: {:.2f}'.format(series.mean()))
+    # plt.axvline(series.median(), color = 'darkgreen', linestyle='dashed', linewidth=5)
+    # plt.text(series.median()*.25, max_ylim_v*0.9, 'Median: {:.2f}'.format(series.median()))
+    plt.grid(b = True, alpha = .45)
+    # plt.figure(figsize = (16, 9))
+    plt.tight_layout()
+    plt.show()
+
 ############################################################ Hypothesis Testing ############################################################
 
 def kruskal_test(avg_var1, avg_var2, avg_var3, avg_var4, null, alternate, alpha):
