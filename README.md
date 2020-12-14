@@ -1,7 +1,7 @@
-# Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections
+# Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections in San Antonio and Dallas Texas
 
 ## About the Project
-The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count in San Antonio, Texas. Features from this measure will be incorporated into a predictive model that can be used to guide recovery resource prioritization. 
+The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count between San Antonio and Dallas Texas.  Using modeling we were able to identify localized communities of need to aid in resource allocation and recovery, as well as identifying SVI features that highligh community specific highly voulnerable subgroups.  It was observed that the most voulnerable supgroups in San antonio included persons over 25 years of age with no high school diploma, minority status (non-white), instiutional group homes, and those who are generally unemployment.  In Dallas #####.  While SVI serves well as an identifiable features for predicting communities who will be most affected by COVID -19, our work highlights that more attention should be paid to specific subgroups that have been identified using model feature selection.   
 
 ### Goals
 
@@ -12,12 +12,16 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 *Goal # 3* - To compare and contrast the patterns observed between SVI score and COVID case count. 
 
 *Goal # 4* - To combine this information in to a model based SVI score component features that can predict COVID cases by census tract to help local goverments 
-             prioritize resource allocation and recovery.   
+             prioritize resource allocation and recovery.  
+
+*Goal # 5* - To identify subgroups inside of identfied communities that need particlular attention or focused support.
 
 ### Background
 The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
 
 While SVI was designed to help city governments respond to emergency situations, the efficacy of the systems has never been tested in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
+
+Seperated by 274 miles San Antonio and Dallas are two cities that share both comparable populations and SVI scores.  In theory these two 
 
 ### Deliverables
 1. Model to predict COVID 19 symptomatic infection by census tract in San Antonio and Dallas, TX.
@@ -35,7 +39,9 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | Census Tract | Small, relatively permanent statistical subdivisions of a county or equivalent entity that are updated by local participants prior to each decennial census as part of the Census Bureau's Participant Statistical Areas Program |
 | Federal Information Processing Standards (FIPS) | A set of standards that describe document processing, encryption algorithms and other information technology standards for use within non-military government agencies and by government contractors and vendors who work with the agencies. |
 | COVID - 19 | Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus |
-| Regression Model | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
+| Regression | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
+| LassoLars Model | Algorithm that performs both feature selection (LASSO) and noise reduction within the same model.|
+| Algorithm | A process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer. |
 | Target Variable | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
 | Predictive Variable | Independent variable: The features used to create the prediction |
 | SVI flag | For a theme, the flag value is the number of flags for variables comprising the theme. We calculated the overall flag value for each tract as the number of all variable flags (Tracts in the top 10%, i.e., at the 90th percentile of values).  |
@@ -67,17 +73,17 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Initial Thoughts & Hypotheses
 
-1. Is the average number of cases per 100k is the same across all CDC SVI Range Categories?
+1. For a defined community is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?
 
-2. Is there a correlation between raw_svi and number of cases per 100k?
+2. For a defined community is there a correlation between raw_svi and number of cases per 100k?
 
-3. Is SVI a uesfull feature for predicting number of cases per 100k?
+3. For a defined community is SVI a uesfull feature for predicting number of cases per 100k?
 
-4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
+4. For a defined community are the individual components of SVI better at predicting COVID cases then the rank score?
 
-5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)? 
+5. Are the features identfied as important in the prediction of COVID cases per 100k consistant across communities (similar size and SVI score)?
 
-6. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores? [Post MVP]
+6. For a defined community is SVI better at predicting COVID cases by cencus tracts with overall high/med/low SVI scores? [Post MVP]
 
 
 ## Project Steps
@@ -94,29 +100,37 @@ Exploration focused on answering questions regarding the relationship between th
 After we were able to infer with 99% confidence that there is a significant difference between CDC SVI range categories we explored the distribution of cases and SVI scores.  When viewed with hue = svi_cat distinct boundaries were observed separating range categories.  Dispersed clustering within categories was observed with the greatest variation occurring in the 'low' SVI vulnerability category.  Several observations within this category were located outside the IQR and identified as outliers. It was decided to leave this data alone, but to further investigate the census tracts and zip codes associated in the next iteration.  Also examine was the relationships between the distribution of cases and number of specific SVI flags.  This plot displayed the same dispersed distribution of cases however the wide distribution of flags under the 'high' vulnerability category was unexpected, as the values ranged from 0-9 flags. This suggests that there is a wide range of flagged vulnerabilities even within the census tracts identified as highly vulnerable.  In the next iteration of research we would love to focus on answering questions such as the mean number of flags in San Antonio, the identification of census tracts with greater then 5 flags, and the geographic (census tract and zip code) distribution of those tracts.  
 
 ### Model
-Baseline for modeling was determined by plotting the histogram distribution of COVID-19 cases per 100k.  The skew observed in the distribution led us to use the median for this value instead of the mean **(verify)**. Used cross validation due to limited size of dataset. Size of dataset limited by San Antonio number of census tracts. Three of the 4 models used all of the features in the dataset, one model used only the top 4 features identified by RFE. Linear Regression, LassoLars, and 2 degree polynomial features used all features and a 2nd version of 2 degree polynomial was run with just the top 4 features. Of these the LassoLars had the least MAE (mean absolute error) and was run on out of sample data (test). The MAE of a model is the mean of the absolute values of the individual prediction errors on over all instances in the test set. We chose to assess model preformance in terms of MAE due to its ease of interpretation.      
-This model had nearly identical MAE when run on out of sample data, only a 0.7 difference in MAE. This 25% improvement over baseline is interpreted as the ability to better predict COVID counts by census tract then simply assuming that every census tract mimicked the city's overall COVID count average.  
+The mean value for COVID cases per 100k was identified as the baseline for modeling. We used cross validation due to limited size of dataset. Size of dataset limited by San Antonio number of census tracts. Three of the 4 models used all of the features in the dataset, one model used only the top 4 features identified by RFE. Linear Regression, LassoLars, and 2 degree polynomial features used all features and a 2nd version of 2 degree polynomial was run with just the top 4 features. Of these the LassoLars had the least MAE (mean absolute error) and was run on out of sample data (test). The MAE of a model is the mean of the absolute values of the individual prediction errors on over all instances in the test set. We chose to assess model preformance in terms of MAE due to its ease of interpretation. Our model returned a list of ranked features and was able be beat the baseline prediction by 25%. We take pride in this improvement, as it means our model provides value to state and local goverments as they move forward in resource allocation and recovery.
 
 ### Conclusions
 
-**1. Is the average number of cases per 100k is the same across all CDC SVI Range Categories?**
-- Based on Kruskal test we are 99% confident that there is a signifcant difference between the average number of cases across the CDC SVI range categories. This suggested that SVI was only only usefull in predicting voulnerable communities duirng this pandemic, but that SVI would become a good modeling feature.    
+**1. For a defined community is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?**
+- Based on Kruskal test we are 99% confident that there is a signifcant difference between the average number of cases across the CDC SVI range categories in both San Antonio and Dallas. This suggests that SVI is usefull in predicting voulnerable communities duirng this pandemic, and that SVI values should be examined as modeling features.    
 
-**2. Is there a correlation between raw_svi and number of cases per 100k?**
-- Based on a Pearson R correlation test we are 99% confident that there is a correlation between raw_svi and number of cases per 100k.  This correlation does not suggest causation, yet discribes that a linear relationshp that exissts between the two features.  This relationship is characterized by a correlation coefficent of 0.55.  
+**2. For a defined community is there a correlation between raw_svi and number of cases per 100k?**
+- Based on a Pearson R correlation test we are 99% confident that there is a correlation between raw_svi and number of cases per 100k in both San Antonio and Dallas.  This correlation does not suggest causation, yet discribes that a linear relationshp that exissts between the two features.  This relationship is characterized by a strong correlation in San Antonio (0.55) and a weaker, yet still significant correlation in Dallas (0.29).   
 
-**3. Is SVI a uesfull feature for predicting number of cases per 100k?**
-- Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k 25% better then baseline.  In this case that means that it was able to imporve the cities ability to allocate funds/infastruture support during recovery with more granularity.
+**3. For a defined community is SVI a uesfull feature for predicting number of cases per 100k?**
+- Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k better then baseline.  
+In San Antonio the model predicted cases 25 % better then average, while in Dallas the model predicted ************.
+In both cases our model provides value to state and local goverments as they move forward in resource allocation and recovery.
 
-**4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?**
-- LassoLars idetinfied rank SVI as the most significant feature in predicting COVID cases.  However, 4 individual flags (community features were ranked
+**4. For a defined community are the individual components of SVI better at predicting COVID cases then the rank score?**
+- LassoLars idetinfied rank SVI as the most significant feature in predicting COVID cases.  However, 4 individual flags (community characeristics) also demonstrated significat importance in model accuracy.  In San Antonio these features included persons over 25 years of age with no high school diploma, minority status (non-white), instiutional group homes, general unemployment.  In Dallas these features included *********.  
 
 
 
 ## How to Reproduce
 ### Steps
+1. Obtain SVI data set from CDC website
+2. Obtain HUD crosswalk data set
+3. Identify COVID case count by county
+4. Run functions in notebook on county data set.  
+
 
 ### Tools & Requirements
+1. Web-based interactive development environment
+2. County data of your choosing
 
 ## Sources
 
