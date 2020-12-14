@@ -5,9 +5,14 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 
 ### Goals
 
-*Goal # 1* - To evaluate the association between SVI score and COVID case count in San Antonio, TX  
+*Goal # 1* - To evaluate the association between SVI score and COVID case count in San Antonio and Dallas, Texas.
 
-*Goal # 2* - To build a model based SVI score component features that can predict COVID cases by census tract within San Antonio, TX    
+*Goal # 2* - To evaluate the correlation between raw SVI score and case count per 100k.
+
+*Goal # 3* - To compare and contrast the patterns observed between SVI score and COVID case count. 
+
+*Goal # 4* - To combine this information in to a model based SVI score component features that can predict COVID cases by census tract to help local goverments 
+             prioritize resource allocation and recovery.   
 
 ### Background
 The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
@@ -15,7 +20,7 @@ The SVI (Social Vulnerability Index) was developed to help city governments and 
 While SVI was designed to help city governments respond to emergency situations, the efficacy of the systems has never been tested in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
 
 ### Deliverables
-1. Model to predict COVID 19 symptomatic infection by census tract in Bexar county
+1. Model to predict COVID 19 symptomatic infection by census tract in San Antonio and Dallas, TX.
 2. Clean and reproducable notebook documenting worflow and findings
 3. 5-10 min presentation
 
@@ -33,6 +38,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | Regression Model | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
 | Target Variable | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
 | Predictive Variable | Independent variable: The features used to create the prediction |
+| SVI flag | For a theme, the flag value is the number of flags for variables comprising the theme. We calculated the overall flag value for each tract as the number of all variable flags (Tracts in the top 10%, i.e., at the 90th percentile of values).  |
 | f_pov_soci | Flag - the percentage of person in povery is in the 90th percentile nationally (1= yes, 0 = no)                                                   | f_unemp_soci | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
 | f_pci_soci | Flag - per capita income is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_nohsdp_soci | Flag - the percentage of persons with no high school diploma is in the 90th percentile nationally (1= yes, 0 = no)|
@@ -65,13 +71,14 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 2. Is there a correlation between raw_svi and number of cases per 100k?
 
-**3. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores?** (keep or remove)
+3. Is SVI a uesfull feature for predicting number of cases per 100k?
 
 4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?
 
-**5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)?** (up next)
+5. Is this pattern different from other cities in TX (Comporable size and SVI demigraphics)? 
 
-6. Is SVI a uesfull feature for predicting number of cases per 100k?
+6. Is SVI better at predicting COVID cases in cencus tracts with overall high/med/low SVI scores? [Post MVP]
+
 
 ## Project Steps
 ### Acquire
@@ -88,7 +95,7 @@ After we were able to infer with 99% confidence that there is a significant diff
 
 ### Model
 Baseline for modeling was determined by plotting the histogram distribution of COVID-19 cases per 100k.  The skew observed in the distribution led us to use the median for this value instead of the mean **(verify)**. Used cross validation due to limited size of dataset. Size of dataset limited by San Antonio number of census tracts. Three of the 4 models used all of the features in the dataset, one model used only the top 4 features identified by RFE. Linear Regression, LassoLars, and 2 degree polynomial features used all features and a 2nd version of 2 degree polynomial was run with just the top 4 features. Of these the LassoLars had the least MAE (mean absolute error) and was run on out of sample data (test). The MAE of a model is the mean of the absolute values of the individual prediction errors on over all instances in the test set. We chose to assess model preformance in terms of MAE due to its ease of interpretation.      
-This model had nearly identical MAE when run on out of sample data, only a 0.7 difference in MAE. This 25% improvement over baseline is interpreted as the ability to better predict COVID counts by census tract then simply assuming that every census tract mimiced the city's overall COVID count average.  
+This model had nearly identical MAE when run on out of sample data, only a 0.7 difference in MAE. This 25% improvement over baseline is interpreted as the ability to better predict COVID counts by census tract then simply assuming that every census tract mimicked the city's overall COVID count average.  
 
 ### Conclusions
 
@@ -98,11 +105,13 @@ This model had nearly identical MAE when run on out of sample data, only a 0.7 d
 **2. Is there a correlation between raw_svi and number of cases per 100k?**
 - Based on a Pearson R correlation test we are 99% confident that there is a correlation between raw_svi and number of cases per 100k.  This correlation does not suggest causation, yet discribes that a linear relationshp that exissts between the two features.  This relationship is characterized by a correlation coefficent of 0.55.  
 
-**3. Are the individual components of SVI better at predicting COVID cases then the aggregate score?**
-- No, the CDC range and the raw SVI are within 2 points of each other. The non-summary flags are 3 points worse than raw svi. The all features does well, but tends to overfit. The top 4 does well without overfitting
+**3. Is SVI a uesfull feature for predicting number of cases per 100k?**
+- Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k 25% better then baseline.  In this case that means that it was able to imporve the cities ability to allocate funds/infastruture support during recovery with more granularity.
 
-**4. 6. Is SVI a uesfull feature for predicting number of cases per 100k?**
-- Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k 25% better then baseline.  In this case that means that it was able to imporve the cities ability to allocate funds/infastruture support during recovery with more granularity (popuation of tract/zip  X 0.25 ). 
+**4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?**
+- LassoLars idetinfied rank SVI as the most significant feature in predicting COVID cases.  However, 4 individual flags (community features were ranked
+
+
 
 ## How to Reproduce
 ### Steps
