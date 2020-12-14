@@ -42,25 +42,28 @@ def get_dallas_svi_data():
     svidf = svidf.rename(columns={'fips': 'tract'})
     return svidf
 
-def get_HUD(svidf):
+def get_HUD(citydf):
     '''
     This function gets the HUD Track to Zip crosswalk data, filters for the city zip codes,
     sorts and orders by % of addresses in Zip code. Then return a dataframe with 1 zip code per tract for the city.
     '''
-    # create a list of zip codes for the city
-    #city_zip_list = citydf.zip.tolist()
+    #create a list of zip codes for the city
+    city_zip_list = citydf.zip.tolist()
     
-    # get list of all tracts from svi
-    tract_list = svidf.tract.tolist()
+    # # get list of all tracts from svi
+    # tract_list = svidf.tract.tolist()
+
+    # # import track to zip dataframe
+    # tracts = pd.read_csv('TRACT_ZIP_032019.csv')
     # import track to zip dataframe
-    tracts = pd.read_csv('TRACT_ZIP_032019.csv')
-    # filter the zips df to only those in the city zip list
-    #zips = zips[zips.zip.isin(city_zip_list)]
+    zips = pd.read_csv('TRACT_ZIP_032019.csv')
+    #filter the zips df to only those in the city zip list
+    zips = zips[zips.zip.isin(city_zip_list)]
     
-    # filter for tracts in list
-    tracts = tracts[tracts.tract.isin(tract_list)]
+    # # filter for tracts in list
+    # tracts = tracts[tracts.tract.isin(tract_list)]
     # aggregate the data frame to get the zip code with the max ratio by tract
-    zipsdf = tracts.groupby(['tract'])['tot_ratio', 'zip'].agg({'tot_ratio':['max'], 'zip':['first']})
+    zipsdf = zips.groupby(['tract'])['tot_ratio', 'zip'].agg({'tot_ratio':['max'], 'zip':['first']})
     zipsdf.columns = [' '.join(col).strip() for col in zipsdf.columns.values]
     zipsdf = zipsdf.reset_index()
     # rename columns
