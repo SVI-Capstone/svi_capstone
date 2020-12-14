@@ -106,7 +106,7 @@ def prepare_data(df):
     # groupdf.columns = groupdf.columns.str.replace(" ", "_")
     
     # Categorizing (or binning) the raw_svi_mean scores
-    df['bin_svi'] = pd.cut(df.raw_svi, bins = [0, .27, .5, .75, 1], labels = ['Low', 'Low_Moderate', 'Moderate_High', 'High'])
+    df['bin_svi'] = pd.cut(df.raw_svi, bins = [0, .27, .5, .75, 1], labels = ['Low', 'Low Moderate', 'Moderate High', 'High'])
     df['rank_svi'] = pd.cut(df.raw_svi, bins = [0, .27, .5, .75, 1], labels = [4, 3, 2, 1])
     
     return df
