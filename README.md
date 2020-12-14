@@ -16,14 +16,15 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 *Goal # 5* - To identify subgroups inside identified communities that need particular attention or focused support.
 
 ### Background
-The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
+The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergencies to prioritize resources to help regions at high risk (CDC's Social Vulnerability Index, 2020). The CDC's Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up into four themes (socioeconomic status, household composition, disability, minority status and language, household type, and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked between 0 and 1.  
 
-While SVI was designed to help city governments respond to emergency situations, the efficacy of the systems has never been tested in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
+While SVI was designed to help city governments respond to emergencies, the systems' efficacy has never been tested in response to a global pandemic. COVID-19 is a disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of 'viral pneumonia' in Wuhan, People's Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
 
-Seperated by 274 miles San Antonio and Dallas are two cities that share both comparable populations and SVI scores.  In theory these two 
+Separated by 274 miles San Antonio and Dallas are two cities that share both comparable population sizes and SVI scores. Cities will be evaluated separately and then together for comparison.  
 
 ### Deliverables
 1. Model to predict COVID 19 symptomatic infection by census tract in San Antonio and Dallas, TX.
+2. Subgroup per community identified for focused support
 2. Clean and reproducable notebook documenting worflow and findings
 3. 5-10 min presentation
 
@@ -35,39 +36,39 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | **Terms**                        | **Definition**        |
 | ---                              | ---                   |
 | Social Vulnerability Index (SVI) | A composite of 15 U.S. census variables to help local officials identify communities that may need support before, during, or after disasters. |
-| Census Tract | Small, relatively permanent statistical subdivisions of a county or equivalent entity that are updated by local participants prior to each decennial census as part of the Census Bureau's Participant Statistical Areas Program |
-| Federal Information Processing Standards (FIPS) | A set of standards that describe document processing, encryption algorithms and other information technology standards for use within non-military government agencies and by government contractors and vendors who work with the agencies. |
+| Census Tract | Small, relatively permanent statistical subdivisions of a county or equivalent entity that are updated by local participants before each decennial census as part of the Census Bureau's Participant Statistical Areas Program |
+| Federal Information Processing Standards (FIPS) | A set of standards that describe document processing, encryption algorithms, and other information technology standards for use within non-military government agencies and by government contractors and vendors who work with the agencies. |
 | COVID - 19 | Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus |
-| Regression | A predictive modelling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
+| Regression | A predictive modeling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
 | LassoLars Model | Algorithm that performs both feature selection (LASSO) and noise reduction within the same model.|
 | Algorithm | A process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer. |
 | Target Variable | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
 | Predictive Variable | Independent variable: The features used to create the prediction |
 | SVI flag | For a theme, the flag value is the number of flags for variables comprising the theme. We calculated the overall flag value for each tract as the number of all variable flags (Tracts in the top 10%, i.e., at the 90th percentile of values).  |
-| f_pov_soci | Flag - the percentage of person in povery is in the 90th percentile nationally (1= yes, 0 = no)                                                   | f_unemp_soci | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
+| f_pov_soci | Flag - the percentage of person in poverty is in the 90th percentile nationally (1= yes, 0 = no)                                                   | f_unemp_soci | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
 | f_pci_soci | Flag - per capita income is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_nohsdp_soci | Flag - the percentage of persons with no high school diploma is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_soci_total | Sum of flages for Socioeconomic Status theme|
+| f_soci_total | Sum of flags for Socioeconomic Status theme|
 | f_age65_comp | Flag - the percentage of persons aged 65 and older is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_age17_comp | Flag - the percenage of persons aged 17 and younger is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_age17_comp | Flag - the percentage of persons aged 17 and younger are in the 90th percentile nationally (1= yes, 0 = no)|
 | f_disabl_comp | Flag - the percentage of persons with a disability is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_sngpnt_comp | Flag - the percentage of single parent households is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_sngpnt_comp | Flag - the percentage of single-parent households is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_comp_total | Sum of flags for Household Compensation theme |
 | f_minrty_status | Flag - the percentage of minority is in the 90th percentile nationally (1= yes, 0 = no)|
-| f_limeng_status  | Flag - the perentage those with limited English is in the 90th percentile nationally (1= yes, 0 = no)|
+| f_limeng_status  | Flag - the percentage of those with limited English is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_status_total | Sum of flags for Minority Status/Language theme |
-| f_munit_trans | Flag = the percentage of households in mulit-unit housing in the 90th percentile nationally (1= yes, 0 = no)|
+| f_munit_trans | Flag = the percentage of households in multi-unit housing in the 90th percentile nationally (1= yes, 0 = no)|
 | f_mobile_trans | Flag - the percentage of mobile homes is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_crowd_trans | Flag - the percentage of crowded households is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_noveh_trans | Flag - the percentage of households with no vehicles is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_groupq_trans | Flag - the percentage of persons in institutionalized group quarters is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_trans_total | Sum of flags for Housing Type/Transportation theme |
 | all_flags_total| Sum of flags for the four themes |
-| tract_cases_per_100k | Derrived density of cases per Cencus Tract |
-| bin_svi | raw_svi percentages broken up in to categories based on CDC precident  *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
+| tract_cases_per_100k | Derived density of cases per Census Tract |
+| bin_svi | raw_svi percentages broken up in to categories based on CDC precedent  *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
 | rank_svi | raw_svi percentages broken up in to categories based on bin_svi  *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
-| Mean Absolute Error (MAE) | MAE measures the average magnitude of the errors in a set of predictions, without considering their direction. It’s the average over the test sample of the absolute differences between prediction and actual observation where all individual differences have equal weight. |
-  ---                     ---  
+| Mean Absolute Error (MAE) | MAE measures the average magnitude of the errors in a set of predictions without considering their direction. It's the average over the test sample of the absolute differences between prediction and actual observation where all individual differences have equal weight. |
+  ---                                ---
 
 
 ## Initial Thoughts & Hypotheses
