@@ -14,6 +14,11 @@ from sklearn.feature_selection import f_regression, SelectKBest, RFE
 from sklearn.linear_model import LinearRegression, LassoLars, TweedieRegressor
 from sklearn.preprocessing import PolynomialFeatures
 
+from numpy import mean
+from numpy import std, absolute
+from sklearn.datasets import make_blobs
+from sklearn.model_selection import LeaveOneOut
+from sklearn.model_selection import cross_val_score
 
 def feature_ranking(X_train_scaled, y_train):
     lm = LinearRegression()
@@ -24,17 +29,35 @@ def feature_ranking(X_train_scaled, y_train):
     rankdf = pd.DataFrame({'features': names, 'rank': ranks}).set_index('rank').sort_values('rank')
     return rankdf
 
-
-def linear_reg_train(x_scaleddf, target):
-    '''
-    runs linear regression algorithm
-    '''
-    lm = LinearRegression()
-    lm.fit(x_scaleddf, target)
-    y_hat = lm.predict(x_scaleddf)
-
-    LM_MAE = mean_absolute_error(target, y_hat)
-    return LM_MAE
+def cvLinearReg(X_train, y_train):
+    # create loocv procedure
+    cvLR = LeaveOneOut()
+    # create model
+    modelLR = LinearRegression()
+    # evaluate model
+    scoresLR = cross_val_score(modelLR, X_train, y_train, scoring='neg_mean_absolute_error', cv=cvLR, n_jobs=-1)
+    # force positive
+    scoresLR = absolute(scoresLR)
+    # report performance
+    print('MAE: %.3f (%.3f)' % (mean(scoresLR), std(scoresLR)))
+    meanMAE = mean(scoresLR)
+    stddevMAE = std(scoresLR)
+    return meanMAE
+def cvLassoLars(X_train, y_train, x):
+    # LassoLars
+    # create loocv procedure
+    cvLL = LeaveOneOut()
+    # create model
+    modelLL = LassoLars(alpha=x)
+    # evaluate model
+    scoresLL = cross_val_score(modelLL, X_train, y_train, scoring='neg_mean_absolute_error', cv=cvLL, n_jobs=-1)
+    # force positive
+    scoresLL = absolute(scoresLL)
+    # report performance
+    print('MAE: %.3f (%.3f)' % (mean(scoresLL), std(scoresLL)))
+    meanMAE = mean(scoresLL)
+    stddevMAE = std(scoresLL)
+    return meanMAE
 
 def get_baseline_mean(y_train):
     '''
@@ -61,6 +84,17 @@ def get_baseline_median(y_train):
     baseline = mean_absolute_error(y_train, y_hat)
     print("Baseline MAE:", baseline)
     return baseline, y_hat
+
+def linear_reg_train(x_scaleddf, target):
+    '''
+    runs linear regression algorithm
+    '''
+    lm = LinearRegression()
+    lm.fit(x_scaleddf, target)
+    y_hat = lm.predict(x_scaleddf)
+
+    LM_MAE = mean_absolute_error(target, y_hat)
+    return LM_MAE
 
 def lasso_lars(x_scaleddf, target):
     '''
@@ -94,47 +128,6 @@ def polynomial2(X_trainsdf, target):
     pf2_MAE = mean_absolute_error(target, lm_squared_pred)
     return pf2_MAE
 
-
-# def poly_val_test(X_train_scaled, X_validate_scaled, y_train, y_validate):
-#     '''
-#     runs polynomial algorithm for validate and test dataframes
-#     needs to be fixed/evaluated, should be combined with above and above needs to return transformed
-#     for later use
-#     ''' 
-#     # Make a model
-#     pf = PolynomialFeatures(degree=2)
-#     X_train_squared = pf.fit_transform(X_train_scaled)
-#     X_validate_squared = pf.transform(X_validate_scaled)
-#     #X_test_squared = pf.transform(X_test_scaled)
-#     # Feed new features in to linear model. 
-#     lm_squared = LinearRegression(normalize=True)
-#     lm_squared.fit(X_train_squared, y_train)
-    
-#     # Make Predictions
-#     lm_pred_train = lm_squared.predict(X_train_squared)
-#     lm_pred_val = lm_squared.predict(X_validate_squared)
-
-#     # Compute root mean squared error
-#     lm_rmse_train = sqrt(mean_squared_error(y_train, lm_pred_train))
-#     lm_rmse_val = sqrt(mean_squared_error(y_validate, lm_pred_val))
-#     print('RMSE train=', lm_rmse_train)
-#     print('RMSE validate=', lm_rmse_val) 
-#     return lm_rmse_train, lm_rmse_val 
-
-
-# def linear_reg_vt(X_train_scaled, X_validate_scaled, y_train, y_validate):
-#     '''
-#     runs linear regression algorithm on validate and test
-#     but fits model on train
-#     '''
-#     lm = LinearRegression()
-#     lm.fit(X_train_scaled, y_train)
-
-#     y_hat = lm.predict(X_validate_scaled)
-
-#     LM_RMSE = sqrt(mean_squared_error(y_validate, y_hat))
-#     return LM_RMSE, y_hat    
-
 def tweedie05(X_train_scaled, y_train):
     '''
     runs tweedie algorithm
@@ -149,17 +142,16 @@ def tweedie05(X_train_scaled, y_train):
     tw_MAE = mean_absolute_error(y_train, tw_pred)
     return tw_MAE
 
-# def tweedie_vt(X_train_scaled, X_validate_scaled, y_train, y_validate):
-#     '''
-#     runs tweedie algorithm on validate and test
-#     but fits model on train
-#     '''
-#     # Make Model
-#     tw = TweedieRegressor(power=0, alpha=0.001) # 0 = normal distribution
-#     # Fit Model
-#     tw.fit(X_train_scaled, y_train)
-#     # Make Predictions
-#     tw_pred = tw.predict(X_validate_scaled)
-#     # Compute root mean squared error
-#     tw_rmse = sqrt(mean_squared_error(y_validate, tw_pred))
-#     return tw_rmse
+def lasso_lars_test(x_scaleddf, target, X_test, y_test):
+    '''
+    runs Lasso Lars algorithm
+    ''' 
+    # Make a model
+    lars = LassoLars(alpha=1)
+    # Fit a model
+    lars.fit(x_scaleddf, target)
+    # Make Predictions
+    lars_pred = lars.predict(X_test)
+    # Computer root mean squared error
+    lars_MAE = mean_absolute_error(y_test, lars_pred)
+    return lars_MAE, lars
