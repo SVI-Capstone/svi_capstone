@@ -1,7 +1,7 @@
 # Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections in San Antonio and Dallas Texas
 
 ## About the Project
-The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count in San Antonio, Texas. Features from this measure will be incorporated into a predictive model that can be used to guide recovery resource prioritization. 
+The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count between San Antonio and Dallas Texas.  Using modeling we were able to identify localized communities of need to aid in resource allocation and recovery, as well as identifying SVI features that highligh community specific highly voulnerable subgroups.  It was observed that the most voulnerable supgroups in San antonio included persons over 25 years of age with no high school diploma, minority status (non-white), instiutional group homes, and those who are generally unemployment.  In Dallas #####.  While SVI serves well as an identifiable features for predicting communities who will be most affected by COVID -19, our work highlights that more attention should be paid to specific subgroups that have been identified using model feature selection.   
 
 ### Goals
 
@@ -12,14 +12,16 @@ The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerab
 *Goal # 3* - To compare and contrast the patterns observed between SVI score and COVID case count. 
 
 *Goal # 4* - To combine this information in to a model based SVI score component features that can predict COVID cases by census tract to help local goverments 
-             prioritize resource allocation and recovery.   
+             prioritize resource allocation and recovery.  
+
+*Goal # 5* - To identify subgroups inside of identfied communities that need particlular attention or focused support.
 
 ### Background
 The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
 
 While SVI was designed to help city governments respond to emergency situations, the efficacy of the systems has never been tested in response to a global pandemic. COVID-19 is the disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of ‘viral pneumonia’ in Wuhan, People’s Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
 
-Be
+Seperated by 274 miles San Antonio and Dallas are two cities that share both comparable populations and SVI scores.  In theory these two 
 
 ### Deliverables
 1. Model to predict COVID 19 symptomatic infection by census tract in San Antonio and Dallas, TX.
