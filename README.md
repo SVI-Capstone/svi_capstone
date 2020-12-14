@@ -1,20 +1,19 @@
 # Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections in San Antonio and Dallas Texas
 
 ## About the Project
-The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count between San Antonio and Dallas Texas.  Using modeling we were able to identify localized communities of need to aid in resource allocation and recovery, as well as identifying SVI features that highligh community specific highly voulnerable subgroups.  It was observed that the most voulnerable supgroups in San antonio included persons over 25 years of age with no high school diploma, minority status (non-white), instiutional group homes, and those who are generally unemployment.  In Dallas #####.  While SVI serves well as an identifiable features for predicting communities who will be most affected by COVID -19, our work highlights that more attention should be paid to specific subgroups that have been identified using model feature selection.   
+The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count between San Antonio and Dallas, Texas.  Using modeling, we were able to identify localized communities of need to aid in resource allocation and recovery and identify SVI features that highlight community-specific, highly vulnerable subgroups.  It was observed that the most vulnerable subgroups in San Antonio included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, and those who are generally unemployed.  In Dallas #####.  While SVI can be used reliably to predict communities most affected by COVID -19, our work highlights that more attention should be paid to specific subgroups that have been identified using model feature selection.  
 
 ### Goals
 
-*Goal # 1* - To evaluate the association between SVI score and COVID case count in San Antonio and Dallas, Texas.
+*Goal # 1* - Evaluate the association between SVI score and COVID case count in San Antonio and Dallas, Texas.
 
-*Goal # 2* - To evaluate the correlation between raw SVI score and case count per 100k.
+*Goal # 2* - Evaluate the correlation between raw SVI score and case count per 100k.
 
-*Goal # 3* - To compare and contrast the patterns observed between SVI score and COVID case count. 
+*Goal # 3* - Compare and contrast the patterns observed between SVI score and COVID case count. 
 
-*Goal # 4* - To combine this information in to a model based SVI score component features that can predict COVID cases by census tract to help local goverments 
-             prioritize resource allocation and recovery.  
+*Goal # 4* - Predict local communities most at risk for COVID infection using SVI score.
 
-*Goal # 5* - To identify subgroups inside of identfied communities that need particlular attention or focused support.
+*Goal # 5* - To identify subgroups inside identified communities that need particular attention or focused support.
 
 ### Background
 The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergency situations so that resources can be prioritized to help areas at high risk (CDC's Social Vulnerability Index, 2020). The CDC’s Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up to 4 themes (socioeconomic status, household composition and disability, minority status and language, household type and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked on a score between 0 and 1.  
@@ -73,13 +72,13 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Initial Thoughts & Hypotheses
 
-1. For a defined community is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?
+1. Is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?
 
-2. For a defined community is there a correlation between raw_svi and number of cases per 100k?
+2. Is there a correlation between raw_svi and number of cases per 100k?
 
-3. For a defined community is SVI a uesfull feature for predicting number of cases per 100k?
+3. Is SVI a uesfull feature for predicting number of cases per 100k?
 
-4. For a defined community are the individual components of SVI better at predicting COVID cases then the rank score?
+4. Are the individual components of SVI better at predicting COVID cases then the rank score?
 
 5. Are the features identfied as important in the prediction of COVID cases per 100k consistant across communities (similar size and SVI score)?
 
