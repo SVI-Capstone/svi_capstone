@@ -108,20 +108,27 @@ The mean value for COVID cases per 100k was identified as the baseline for model
 **2. For a defined community is there a correlation between raw_svi and number of cases per 100k?**
 - Based on a Pearson R correlation test we are 99% confident that there is a correlation between raw_svi and number of cases per 100k in both San Antonio and Dallas.  This correlation does not suggest causation, yet discribes that a linear relationshp that exissts between the two features.  This relationship is characterized by a strong correlation in San Antonio (0.55) and a weaker, yet still significant correlation in Dallas (0.29).   
 
-**3. Is SVI a uesfull feature for predicting number of cases per 100k?**
+**3. For a defined community is SVI a uesfull feature for predicting number of cases per 100k?**
 - Yes, using LassoLars regression modeling and SVI as a feature the model able to predict number of caseses per 100k better then baseline.  
 In San Antonio the model predicted cases 25 % better then average, while in Dallas the model predicted ************.
 In both cases our model provides value to state and local goverments as they move forward in resource allocation and recovery.
 
-**4. Are the individual components of SVI better at predicting COVID cases then the aggregate score?**
-- LassoLars idetinfied rank SVI as the most significant feature in predicting COVID cases.  However, 4 individual flags (community features were ranked
+**4. For a defined community are the individual components of SVI better at predicting COVID cases then the rank score?**
+- LassoLars idetinfied rank SVI as the most significant feature in predicting COVID cases.  However, 4 individual flags (community characeristics) also demonstrated significat importance in model accuracy.  In San Antonio these features included persons over 25 years of age with no high school diploma, minority status (non-white), instiutional group homes, general unemployment.  In Dallas these features included *********.  
 
 
 
 ## How to Reproduce
 ### Steps
+1. Obtain SVI data set from CDC website
+2. Obtain HUD crosswalk data set
+3. Identify COVID case count by county
+4. Run functions in notebook on county data set.  
+
 
 ### Tools & Requirements
+1. Web-based interactive development environment
+2. County data of your choosing
 
 ## Sources
 
