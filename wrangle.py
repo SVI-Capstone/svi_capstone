@@ -127,7 +127,7 @@ def wrangle_countylevelonly_data():
     df = prepare_counties.prepare_countylevelonly_data(df)
 
     # split dataset
-    target_var = 'cases_per_100k'
+    target_var = 'tract_cases_per_100k'
     train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
     print(X_train.shape, X_test.shape)
 
