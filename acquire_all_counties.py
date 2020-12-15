@@ -26,7 +26,7 @@ def get_county_data():
     # get svi .csv
     svidf = pd.read_csv('SVI2018_us.csv')
     # based on CDC info should drop tracts with 0 population
-    svidf[svidf.E_TOTPOP != 0]
+    svidf = svidf[svidf.E_TOTPOP != 0]
     # filter for selected state and county
     svidf = svidf[svidf.STATE == state_req]
     svidf = svidf[svidf.COUNTY == county_req]
@@ -91,64 +91,37 @@ def get_HUD(citydf):
     return zipsdf
 
 
-def compile_san_antonio_data():
+def get_countylevelonly_data():
     '''
-    This function gets the data from the 3 .csv files and compiles them together
+    This function  gathers input from the user for state and date
+    reads the SVI2018_US_COUNTY.csv and returns dataframe of selected state.
+    It also reads the county data by date and gets the COVID cases for that county by date.
     '''
-    # get SVI data
-    svidf = get_sa_svi_data()
-    # get the Bexar data
-    bexar = get_san_antonio_data()
-    # create the merge dataframe
-    merge_bexar = bexar[['zip', 'population', 'positive', 'casesp100000']]
-    # get the HUD data
-    merge_zip = get_HUD(bexar)  
-    # create new df merging svi and 2nd merge zip file on tract
-    svi_zip = pd.merge(svidf, merge_zip, on='tract', how='left')
-    svi_zip_cases = pd.merge(svi_zip, merge_bexar, on='zip', how='left')
-    return svi_zip_cases
-
-
-def compile_dallas_data():
-    '''
-    This function gets the data from the 3 .csv files and compiles them together
-    '''
-    # get SVI data
-    svidf = get_dallas_svi_data()
-    # get the Dallas data
-    dallas = get_dallas_data()
-    # create the merge dataframe
-    merge_dallas = dallas[['zip', 'population', 'cases_per_100k']]
-    # get the HUD data
-    merge_zip = get_HUD(dallas)  
-    # create new df merging svi and 2nd merge zip file on tract
-    svi_zip = pd.merge(svidf, merge_zip, on='tract', how='left')
-    svi_zip_cases = pd.merge(svi_zip, merge_dallas, on='zip', how='left')
-    # drop nulls - these are tracts not in the Dallas cases file
-    svi_zip_cases.dropna(inplace=True)
-    # rename cases per 100k for prepare function
-    svi_zip_cases = svi_zip_cases.rename(columns={'cases_per_100k': 'casesp100000'})
-    return svi_zip_cases
-
-def compile_sa_data():
-    '''
-    This function gets the data from the 3 .csv files and compiles them together
-    '''
-    # get SVI data
-    svidf = get_san_antonio_data()
-    # get the sa data
-    bexar = get_sa_svi_data()
-    # create the merge dataframe
-    merge_sa = bexar[['zip', 'population', 'positive', 'casesp100000']]
-    # get the HUD data
-    merge_zip = get_HUD(svidf)  
-    # create new df merging svi and 2nd merge zip file on tract
-    svi_zip = pd.merge(svidf, merge_zip, on='tract', how='left')
-    svi_zip_cases = pd.merge(svi_zip, merge_sa, on='zip', how='left')
-    return svi_zip_cases
-
-def run():
-    print("Acquire: compiling raw data files...")
-    df = compile_dallas_data()
-    print("Acquire: Completed!")
-    return df
+    # get user input for state abbreviation and county name and date
+    date_req = input('Enter the requested date in YYYY-MM-DD format: ')
+    state_req = input('Enter the requested state full name: ')
+    # state must be in uppercase, county must be in titlecase
+    state_req = state_req.upper()
+    # should probably add a date format check here
+    
+    # get svi .csv
+    svidf = pd.read_csv('SVI2018_US_COUNTY.csv')
+    svidf.columns = svidf.columns.str.lower()
+    # based on CDC info should drop counties with 0 population
+    # not needed no null population counties
+    # filter for selected state and county
+    svidf = svidf[svidf.state == state_req]
+    print(svidf.shape)
+    
+    # read the all counties COVID data .csv
+    casesdf = pd.read_csv('COVID20201208_county', index_col = 0)
+    # need state in title case for this dataset
+    state_req2 = state_req.title()
+    # filter for only the selected date, state, and county
+    casesdf = casesdf[casesdf['date'] == date_req]
+    casesdf = casesdf[casesdf.state == state_req2]
+    print(casesdf.shape)
+    # merge dataframes on county
+    cmerged = pd.merge(svidf, casesdf, on='county')
+    print(cmerged.shape)
+    return cmerged
