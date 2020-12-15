@@ -11,6 +11,8 @@ import sklearn
 import acquire
 import prepare
 import acquire_dallas
+import acquire_all_counties
+import prepare_counties
 
 #################### Wrangle ##################
 
@@ -116,3 +118,30 @@ def wrangle_dallas_data():
     X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
     
     return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
+
+def wrangle_countylevelonly_data():
+    '''This function makes all necessary changes to the dataframe for exploration and modeling'''
+    # acquire data
+    df = acquire_all_counties.get_countylevelonly_data()
+    # prepare data
+    df = prepare_counties.prepare_countylevelonly_data(df)
+
+    # split dataset
+    target_var = 'cases_per_100k'
+    train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
+    print(X_train.shape, X_test.shape)
+
+    # drop rows not needed for modeling
+    X_train = X_train.drop(columns=['county','e_totpop', 'cases', 'state_pop', 'pop_percentage', 'calculated_cases', 'bin_svi'])
+    X_test = X_test.drop(columns=['county','e_totpop', 'cases', 'state_pop', 'pop_percentage', 'calculated_cases', 'bin_svi'])
+    
+    # df is now ready to scale
+    X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
+
+    # drop rows now scaled from scaled dataframes
+    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
+    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
+    
+    return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
+
+
