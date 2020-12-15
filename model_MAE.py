@@ -19,6 +19,8 @@ from numpy import std, absolute
 from sklearn.datasets import make_blobs
 from sklearn.model_selection import LeaveOneOut
 from sklearn.model_selection import cross_val_score
+from sklearn.svm import SVR
+from sklearn.ensemble import RandomForestRegressor
 
 def feature_ranking(X_train_scaled, y_train):
     lm = LinearRegression()
@@ -43,6 +45,7 @@ def cvLinearReg(X_train, y_train):
     meanMAE = mean(scoresLR)
     stddevMAE = std(scoresLR)
     return meanMAE
+
 def cvLassoLars(X_train, y_train, x):
     # LassoLars
     # create loocv procedure
@@ -58,6 +61,58 @@ def cvLassoLars(X_train, y_train, x):
     meanMAE = mean(scoresLL)
     stddevMAE = std(scoresLL)
     return meanMAE
+
+def cvTweedie(X_train, y_train, pwr, alf):
+    # Tweedie Regressor
+    # create loocv procedure
+    cvTW = LeaveOneOut()
+    # create model
+    modelTW = TweedieRegressor(power=pwr, alpha=alf) # 0 = normal distribution
+    # evaluate model
+    scoresTW = cross_val_score(modelTW, X_train, y_train, scoring='neg_mean_absolute_error', cv=cvTW, n_jobs=-1)
+    # force positive
+    scoresTW = absolute(scoresTW)
+    # report performance
+    print('MAE: %.3f (%.3f)' % (mean(scoresTW), std(scoresTW)))
+    meanMAE = mean(scoresTW)
+    stddevMAE = std(scoresTW)
+    return meanMAE
+
+def cvRandomForest(X_train, y_train, x):
+    # Random Forest Regressor
+    # create loocv procedure
+    cvRF = LeaveOneOut()
+    # create model
+    modelRF = RandomForestRegressor(n_estimators=x, random_state = 123)
+    # evaluate model
+    scoresRF = cross_val_score(modelRF, X_train, y_train, scoring='neg_mean_absolute_error', cv=cvRF, n_jobs=-1)
+    # force positive
+    scoresRF = absolute(scoresRF)
+    # report performance
+    print('MAE: %.3f (%.3f)' % (mean(scoresRF), std(scoresRF)))
+    meanMAE = mean(scoresRF)
+    stddevMAE = std(scoresRF)
+    return meanMAE
+
+def cvSVR(X_train, y_train, x):
+    # Support Vector Regressor
+    # create loocv procedure
+    cvSVR = LeaveOneOut()
+    # create model
+    modelSVR = SVR(kernel = x)
+    # evaluate model
+    scoresSVR = cross_val_score(modelSVR, X_train, y_train, scoring='neg_mean_absolute_error', cv=cvSVR, n_jobs=-1)
+    # force positive
+    scoresRF = absolute(scoresSVR)
+    # report performance
+    print('MAE: %.3f (%.3f)' % (mean(scoresSVR), std(scoresSVR)))
+    meanMAE = mean(scoresSVR)
+    stddevMAE = std(scoresSVR)
+    return meanMAE
+
+
+
+
 
 def get_baseline_mean(y_train):
     '''
@@ -142,6 +197,20 @@ def tweedie05(X_train_scaled, y_train):
     tw_MAE = mean_absolute_error(y_train, tw_pred)
     return tw_MAE
 
+def randomforest_test(x_scaleddf, target, X_test, y_test, est):
+    '''
+    runs random forest regressor
+    '''
+    # make model
+    regressor = RandomForestRegressor(n_estimators = est, random_state = 123)
+    # fit the model
+    regressor.fit(x_scaleddf, target)
+    # make predictions
+    y_pred = regressor.predict(X_test)
+    # calculate MAE
+    randMAE = mean_absolute_error(y_test, y_pred)
+    return randMAE, regressor
+
 def lasso_lars_test(x_scaleddf, target, X_test, y_test):
     '''
     runs Lasso Lars algorithm
@@ -169,3 +238,22 @@ def linear_test(x_scaleddf, target, X_test, y_test):
     # calculate MAE
     LM_MAE = mean_absolute_error(y_test, y_hat)
     return LM_MAE, lm
+
+
+def SVR_test(x_scaleddf, target, X_test, y_test, kern):
+    '''
+    runs Support Vector Regressor algorithm
+    ''' 
+    # Make a model
+    regressor = SVR(kernel = kern)
+    # Fit model on train dataset
+    regressor.fit(x_scaleddf, target)
+    # Make Predictions on test dataset
+    y_hat = sc_y.inverse_transform(regressor.predict(sc_X.transform(X_test)))
+    # calculate MAE
+    svr_MAE = mean_absolute_error(y_test, y_hat)
+    return svr_MAE, regressor
+
+
+
+
