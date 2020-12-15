@@ -147,6 +147,6 @@ In both cases, our model provides value to state and local governments as they m
 
 ## Creators
 
-(Corey Solitaire)[https://github.com/CSolitaire]  
-(Ryvyn Young)[https://github.com/RyvynYoung]   
-(Luke Becker)[https://github.com/lukewbecker]   
+[Corey Solitaire](https://github.com/CSolitaire)  
+[Ryvyn Young](https://github.com/RyvynYoung)   
+[Luke Becker](https://github.com/lukewbecker)   
