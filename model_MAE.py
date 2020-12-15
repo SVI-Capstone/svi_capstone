@@ -152,6 +152,20 @@ def lasso_lars_test(x_scaleddf, target, X_test, y_test):
     lars.fit(x_scaleddf, target)
     # Make Predictions
     lars_pred = lars.predict(X_test)
-    # Computer root mean squared error
+    # calculate MAE
     lars_MAE = mean_absolute_error(y_test, lars_pred)
     return lars_MAE, lars
+
+def linear_test(x_scaleddf, target, X_test, y_test):
+    '''
+    runs Lasso Lars algorithm
+    ''' 
+    # Make a model
+    lm = LinearRegression()
+    # Fit model on train dataset
+    lm.fit(x_scaleddf, target)
+    # Make Predictions on test dataset
+    y_hat = lm.predict(X_test)
+    # calculate MAE
+    LM_MAE = mean_absolute_error(y_test, y_hat)
+    return LM_MAE, lm
