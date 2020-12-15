@@ -189,7 +189,7 @@ def prepare_countylevelonly_data(df):
     # create column of cases based on percentage of population
     df['calculated_cases'] = df.pop_percentage * sum(df.cases)
     # create cases per 100k column
-    df['cases_per_100k'] = df.cases/df.e_totpop*100000
+    df['tract_cases_per_100k'] = df.cases/df.e_totpop*100000
     # Columns we want to keep (can be changed as needed):
     columns_to_keep = [
                     # 'st_abbr',
@@ -199,7 +199,7 @@ def prepare_countylevelonly_data(df):
                     'pop_percentage',
                     'calculated_cases',
                     'cases',
-                    'cases_per_100k',
+                    'tract_cases_per_100k',
                     # 'tract',
                     # 'area_sqmi',
                     'rpl_themes',
