@@ -103,7 +103,7 @@ def cvSVR(X_train, y_train, x):
     # evaluate model
     scoresSVR = cross_val_score(modelSVR, X_train, y_train, scoring='neg_mean_absolute_error', cv=cvSVR, n_jobs=-1)
     # force positive
-    scoresRF = absolute(scoresSVR)
+    scoresSVR = absolute(scoresSVR)
     # report performance
     print('MAE: %.3f (%.3f)' % (mean(scoresSVR), std(scoresSVR)))
     meanMAE = mean(scoresSVR)
@@ -254,6 +254,18 @@ def SVR_test(x_scaleddf, target, X_test, y_test, kern):
     svr_MAE = mean_absolute_error(y_test, y_hat)
     return svr_MAE, regressor
 
-
+def tweedie_test(X_train, y_train, X_test, y_test, pwr, alf):
+    '''
+    runs tweedie algorithm
+    ''' 
+    # Make Model
+    tw = TweedieRegressor(power=pwr, alpha=alf) # 0 = normal distribution
+    # Fit Model
+    tw.fit(X_train, y_train)
+    # Make Predictions
+    tw_pred = tw.predict(X_test)
+    # Compute root mean squared error
+    tw_MAE = mean_absolute_error(y_test, tw_pred)
+    return tw_MAE, tw
 
 
