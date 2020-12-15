@@ -1,7 +1,7 @@
 # Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections in San Antonio and Dallas Texas
 
 ## About the Project
-The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count between San Antonio and Dallas, Texas.  Using modeling, we were able to identify localized communities of need to aid in resource allocation and recovery and identify SVI features that highlight community-specific, highly vulnerable subgroups.  It was observed that the most vulnerable subgroups in San Antonio included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, and those who are generally unemployed.  In Dallas #####.  While SVI can be used reliably to predict communities most affected by COVID -19, our work highlights that more attention should be paid to specific subgroups that have been identified using model feature selection.  
+The CDC's social vulnerability index (SVI) is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We will evaluate the association between SVI score and COVID case count between San Antonio and Dallas, Texas.  Using modeling, we were able to identify localized communities of need to aid in resource allocation and recovery and identify SVI features that highlight community-specific, highly vulnerable subgroups.  It was observed that the most vulnerable subgroups in San Antonio included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, and those who are generally unemployed.  In Dallas, these groups focused on minority populations, those over 25 years of age with no high school diploma, and individuals that are identified as having limited English proficiency (LEP).  While SVI can be used reliably to predict communities most affected by COVID -19, our work highlights that more attention should be paid to specific subgroups that have been identified using model feature selection.  
 
 ### Goals
 
@@ -80,7 +80,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 4. Are the individual components of SVI better at predicting COVID cases, then the rank score?
 
-5. Are the features identified as necessary to predict COVID cases per 100k consistent across communities (similar size and SVI score)?
+5. Are the features identified in modeling consistent across communities (similar size and SVI score)? 
 
 6. For a defined community, is SVI better at predicting COVID cases by census tracts with overall high/med/low SVI scores? [Post MVP]
 
@@ -97,22 +97,29 @@ Exploration focused on answering questions regarding the relationship between th
 After we were able to infer with 99% confidence that there is a significant difference between CDC SVI range categories, we explored the distribution of cases and SVI scores. When viewed with hue = svi_cat distinct boundaries were observed separating range categories. Dispersed clustering within categories was observed, with the most significant variation occurring in the 'low' SVI vulnerability category. Several observations within this category were located outside the IQR and identified as outliers. It was decided to leave this data alone but to further investigate the census tracts and zip codes associated in the next iteration. Also, examine was the relationships between the distribution of cases and the number of specific SVI flags. In San Antonio, a wide distribution of flags under the 'high' vulnerability category was observed. This came as an unexpected observation and suggested the need to identify subgroups inside identified communities that need more focused assistance or support. Similar trends were observed in the Dallas dataset. The most significant difference is that flags' specific distribution under the 'high' vulnerability category change.  This unique distribution of flags per city suggests that while cities may use SVI to identify vulnerable communities, they may need alternate tools to key in on particularly vulnerable subgroups. 
 
 ### Model
-The mean value for COVID cases per 100k was identified as the baseline for modeling. We used cross-validation instead of a three-way split into train, validate, and test datasets due to the dataset's limited size. The size of the dataset is limited by the number of census tracts in each city. Linear Regression and LassoLars algorithms were used to evaluate multiple combinations of feature selection. Of these, the LassoLars had the least MAE (mean absolute error) when using all of the possible features and was run on the out of sample (test) data. The MAE of a model is the mean of the individual prediction errors' absolute values over all instances in the test set. We chose to assess model performance in terms of MAE due to its ease of interpretation. Our model returned a list of ranked features and was able to beat the baseline prediction by 12%. We take pride in this improvement, as it means our model provides value to state and local governments as they move forward in resource allocation and recovery.
+The mean value for COVID cases per 100k was identified as the baseline for modeling. We used cross-validation instead of a three-way split into train, validate, and test datasets due to the dataset's limited size. The size of the dataset is limited by the number of census tracts in each city. Linear Regression and LassoLars algorithms were used to evaluate multiple combinations of feature selection. Of these, the LassoLars had the least MAE (mean absolute error) when using all of the possible features and was run on the out of sample (test) data. The MAE of a model is the mean of the individual prediction errors' absolute values over all instances in the test set. We chose to assess model performance in terms of MAE due to its ease of interpretation. San Antonio's top-performing model is nearly a tie between Linear Regression and LassoLars, using Top 4 features as identified by RFE. The linear model on test has an MAE of 778 vs. baseline MAE 973, a 20% improvement over baseline in San Antonio. In Dallas, the tie is the same again, with the Top 4 features doing the best. However, on unseen data (test), both models are worse than the baseline.
 
 ### Conclusions
 **1. Is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?**
 - Based on the Kruskal test, we are 99% confident that there is a significant difference between the average number of cases across the CDC SVI range categories in San Antonio and Dallas. This suggests that SVI is useful in predicting vulnerable communities during this pandemic and that SVI values should be examined as modeling features.    
 
 **2. Is there a correlation between raw_svi and the number of cases per 100k?**
-- Based on a Pearson R correlation test, we are 99% confident that there is a correlation between raw_svi and the number of cases per 100k in San Antonio and Dallas.  This correlation does not suggest causation yet describes a linear relationship that exists between the two features.  This relationship is characterized by a strong correlation in San Antonio (0.55) and a weaker yet still significant correlation in Dallas (0.29).   
+- Based on a Pearson R correlation test, we are 99% confident that there is a correlation between raw_svi and the number of cases per 100k in San Antonio and Dallas.  This correlation does not suggest causation yet describes a linear relationship that exists between the two features.  This relationship is characterized by a strong correlation in San Antonio (0.54) and a weaker yet still significant correlation in Dallas (0.19).   
 
 **3. Is SVI a useful feature for predicting the number of cases per 100k?**
-- Yes, using LassoLars regression modeling and SVI as a feature, the model can predict the number of cases per 100k better than baseline.  
-In San Antonio, the model predicted cases 25 % better than average, while in Dallas, the model predicted ###.
-In both cases, our model provides value to state and local governments as they move forward in resource allocation and recovery.
+
+- *Yes, in San Antonio*. Using LassoLars regression modeling and SVI as a feature, our model can predict the number of cases per 100k 25% better than baseline. 
+
+- *No, in Dallas.*  Using LassoLars regression modeling and SVI as a feature, the model could not predict the number of cases per 100k better than baseline.
+
+This observation suggests that while there are correlations between SVI scores and cases per 100k in Dallas, those correlations are not as aligned by SVI scores observed in San Antonio.  Further investigation into the socioeconomic disparity in San Antonio might provide insight into other corollary factors at play. 
 
 **4. Are the individual components of SVI better at predicting COVID cases than the rank score?**
-- LassoLars identified rank SVI as the most significant feature in predicting COVID cases.  However, four individual flags (community characteristics) also demonstrated significant importance in model accuracy.  In San Antonio, these features included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, general unemployment.  In Dallas, these features included ###.  
+- LassoLars identified rank SVI as the most significant feature in predicting COVID cases.  However, four individual flags (community characteristics) also demonstrated significant importance in model accuracy.  In San Antonio, these features included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, general unemployment. Even though the model was unable to beat the baseline in Dallas, it did identify several features that also demonstrated significant importance.  These features included belonging to a minority population, over 25 years of age with no high school diploma, and being identified as having limited English proficiency (LEP).
+
+**5. Are the features identified in modeling consistent across communities (similar size and SVI score)?**
+
+
 
 ## How to Reproduce
 ### Steps
