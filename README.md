@@ -118,8 +118,7 @@ This observation suggests that while there are correlations between SVI scores a
 - LassoLars identified rank SVI as the most significant feature in predicting COVID cases.  However, four individual flags (community characteristics) also demonstrated significant importance in model accuracy.  In San Antonio, these features included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, general unemployment. Even though the model was unable to beat the baseline in Dallas, it did identify several features that also demonstrated significant importance.  These features included belonging to a minority population, over 25 years of age with no high school diploma, and being identified as having limited English proficiency (LEP).
 
 **5. Are the features identified in modeling consistent across communities (similar size and SVI score)?**
-
-
+In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, COVID cases are so frighteningly aligned with SVI score that SVI can be used to predict COVID hotspots. In Dallas, these communities are still being affected disproportionately by COVID; however, SVI is not a large enough factor in predicting COVID better than baseline.  For two cities with the same approximate SVI score and population, this is an interesting observation that will require further research to understand better.  
 
 ## How to Reproduce
 ### Steps
