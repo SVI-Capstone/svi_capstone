@@ -65,7 +65,16 @@ def scale_data(X_train, X_test):
     X_train,
     X_test,
     scaler = sklearn.preprocessing.MinMaxScaler(),
-    columns_to_scale=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
+    columns_to_scale=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    return X_train_scaled, X_test_scaled
+
+def scale_data_centroid(X_train, X_test):
+    """This function provides the inputs and runs the add_scaled_columns function"""
+    X_train_scaled, X_test_scaled = add_scaled_columns(
+    X_train,
+    X_test,
+    scaler = sklearn.preprocessing.MinMaxScaler(),
+    columns_to_scale=['centroid_spl_theme1', 'centroid_ep_pov', 'centroid_e_pov'])
     return X_train_scaled, X_test_scaled
 
 
