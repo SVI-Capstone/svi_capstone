@@ -126,10 +126,27 @@ def my_plotter(df, col_x, col_x_title, col_y, col_y_title, hue = "bin_svi"):
 
 def kruskal_test(avg_var1, avg_var2, avg_var3, avg_var4, null, alternate, alpha):
     '''
-    Runs non parametric ANOVA when p-value from levene test(variance) is < 0.05
+    Runs non parametric ANOVA when p-value from levene test(variance) is greater than 0.05
     '''
     alpha = alpha
     f, p = kruskal(avg_var1,avg_var2,avg_var3,avg_var4)
+    print('f=', f)
+    print('p=', p)
+    print('\n')
+    if p < alpha:
+        print("We reject the null that: \n", null)
+        print('\n')
+        print("We move forward with the alternative hypothesis that: \n", alternate)
+    else:
+        print("We fail to reject the null")
+        print("Evidence does not support the claim that smoking status and time of day are dependent/related")
+
+def anova_test(avg_var1, avg_var2, avg_var3, avg_var4, null, alternate, alpha):
+    '''
+    Runs ANOVA when p-value from levene test(variance) is less than 0.05
+    '''
+    alpha = alpha
+    f, p = stats.f_oneway(avg_var1,avg_var2,avg_var3,avg_var4)
     print('f=', f)
     print('p=', p)
     print('\n')
