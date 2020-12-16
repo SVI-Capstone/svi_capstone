@@ -170,8 +170,8 @@ def wrangle_data_class():
     svi_features = pd.read_csv('svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     # bin the new y variable
-    df['bin_cases'] = pd.cut(df.tract_cases_per_100k, bins = [780, 2280, 2860, 3850, 8900], labels = ['low', 'low_mod', 'mod_high', 'high'])
-    df['rank_cases'] = pd.cut(df.tract_cases_per_100k, bins = [780, 2280, 2860, 3850, 8900], labels = [4, 3, 2, 1])
+    df['bin_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 2500, 5000, 7500, 10000], labels = ['low', 'low_mod', 'mod_high', 'high'])
+    df['rank_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 2500, 5000, 7500, 10000], labels = [4, 3, 2, 1])
     
     # split dataset
     target_var = 'rank_cases'
@@ -179,8 +179,8 @@ def wrangle_data_class():
     print(X_train.shape, X_test.shape)
 
    # drop rows not needed for modeling
-    X_train = X_train.drop(columns=['tract','zip','bin_svi'])
-    X_test = X_test.drop(columns=['tract','zip','bin_svi'])
+    X_train = X_train.drop(columns=['tract','zip','bin_svi', 'bin_cases', 'tract_cases_per_100k'])
+    X_test = X_test.drop(columns=['tract','zip','bin_svi', 'bin_cases', 'tract_cases_per_100k'])
     
     # df is now ready to scale
     X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
