@@ -84,7 +84,10 @@ def wrangle_data():
     df = acquire.run()
     # prepare data
     df = prepare.run(df)
-
+    # merge in svi features
+    svi_features = pd.read_csv('svi_features.csv')
+    df = pd.merge(df, svi_features, on='tract')
+    
     # split dataset
     target_var = 'tract_cases_per_100k'
     train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
