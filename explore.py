@@ -158,4 +158,100 @@ def pearson(continuous_var1, continuous_var2, null, alternate, alpha):
         print("We fail to reject the null")
         print("Evidence does not support the claim that smoking status and time of day are dependent/related")
 
+####################################################### Clustering Functions ##############################################
+
+def r2(x, y):
+    '''
+    Takes in x and y and returns pearsons correlation coefficent
+    '''
+    return stats.pearsonr(x, y)[0] ** 2
+
+##################################################################################################################
+
+def elbow_plot(X_train_scaled, cluster_vars):
+    '''
+    Given X_train and cluster variables plots an elbow_plot
+    '''
+    # elbow method to identify good k for us
+    ks = range(1,10)
     
+    # empty list to hold inertia (sum of squares)
+    sse = []
+
+    # loop through each k, fit kmeans, get inertia
+    for k in ks:
+        kmeans = KMeans(n_clusters=k)
+        kmeans.fit(X_train_scaled[cluster_vars])
+        # inertia
+        sse.append(kmeans.inertia_)
+
+    print(pd.DataFrame(dict(k=ks, sse=sse)))
+
+    # plot k with inertia
+    plt.plot(ks, sse, 'bx-')
+    plt.xlabel('k')
+    plt.ylabel('SSE')
+    plt.title('Elbow method to find optimal k')
+    plt.show()
+
+##################################################################################################################
+
+def run_kmeans(X_train, X_train_scaled, k, cluster_vars, cluster_col_name):
+    '''
+    Creates a kemeans object and creates a dataframe with cluster information
+    '''
+    # create kmeans object
+    kmeans = KMeans(n_clusters = k, random_state = 13)
+    kmeans.fit(X_train_scaled[cluster_vars])
+    # predict and create a dataframe with cluster per observation
+    train_clusters = \
+        pd.DataFrame(kmeans.predict(X_train_scaled[cluster_vars]),
+                              columns=[cluster_col_name],
+                              index=X_train.index)
+    
+    return train_clusters, kmeans
+
+##################################################################################################################
+
+def kmeans_transform(X_scaled, kmeans, cluster_vars, cluster_col_name):
+    '''
+    Takes in a dataframe and returns custers that have been predicted on that dataframe
+    '''
+    kmeans.transform(X_scaled[cluster_vars])
+    trans_clusters = \
+        pd.DataFrame(kmeans.predict(X_scaled[cluster_vars]),
+                              columns=[cluster_col_name],
+                              index=X_scaled.index)
+    
+    return trans_clusters
+
+##################################################################################################################
+
+def get_centroids(cluster_vars, cluster_col_name, kmeans):
+    '''
+    Takes in kmeans and cluster variables to produce centroids
+    '''
+    centroid_col_names = ['centroid_' + i for i in cluster_vars]
+
+    centroids = pd.DataFrame(kmeans.cluster_centers_, 
+             columns=centroid_col_names).reset_index().rename(columns={'index': cluster_col_name})
+    
+    return centroids
+
+##################################################################################################################
+
+def add_to_train(train_clusters, centroids, X_train_scaled, cluster_col_name):
+    '''
+    Takes in a datafrme, clusters, centroids and returns a new dataframe with all information concated together
+    '''
+    # concatenate cluster id
+    X_train2 = pd.concat([X_train_scaled, train_clusters], axis=1)
+
+    # join on clusterid to get centroids
+    X_train2 = X_train2.merge(centroids, how='left', 
+                            on=cluster_col_name).\
+                        set_index(X_train_scaled.index)
+    
+    return X_train2
+
+##################################################################################################################
