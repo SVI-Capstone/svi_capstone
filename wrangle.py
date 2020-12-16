@@ -98,8 +98,8 @@ def wrangle_data():
     X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
 
     # drop rows now scaled from scaled dataframes
-    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
-    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
+    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
     
     return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
 
@@ -141,15 +141,15 @@ def wrangle_countylevelonly_data():
     print(X_train.shape, X_test.shape)
 
     # drop rows not needed for modeling
-    X_train = X_train.drop(columns=['county','e_totpop', 'cases', 'state_pop', 'pop_percentage', 'calculated_cases', 'bin_svi'])
-    X_test = X_test.drop(columns=['county','e_totpop', 'cases', 'state_pop', 'pop_percentage', 'calculated_cases', 'bin_svi'])
+    X_train = X_train.drop(columns=['county','e_totpop', 'cases', 'state_pop', 'pop_percentage', 'calculated_cases', 'bin_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    X_test = X_test.drop(columns=['county','e_totpop', 'cases', 'state_pop', 'pop_percentage', 'calculated_cases', 'bin_svi','spl_theme1', 'ep_pov', 'e_pov'])
     
     # df is now ready to scale
     X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
 
     # drop rows now scaled from scaled dataframes
-    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
-    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi'])
+    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
     
     return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
 
