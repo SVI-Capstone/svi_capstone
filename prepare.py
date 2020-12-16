@@ -29,6 +29,8 @@ def prepare_data(df):
     df['tract_cases_per_100k'] = df.casesp100000 * df.address_ratio
 
 
+                    
+                    
 
     # Columns we want to keep (can be changed as needed):
     columns_to_keep = [
@@ -37,6 +39,9 @@ def prepare_data(df):
                     'tract',
                     # 'area_sqmi',
                     'rpl_themes',
+                    'e_pov',
+                    'ep_pov',
+                    'spl_theme1',
                     'f_pov',
                     'f_unemp',
                     'f_pci',
