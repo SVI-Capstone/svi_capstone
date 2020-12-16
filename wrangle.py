@@ -85,7 +85,7 @@ def wrangle_data():
     # prepare data
     df = prepare.run(df)
     # merge in svi features
-    svi_features = pd.read_csv('svi_features.csv')
+    svi_features = pd.read_csv('svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     
     # split dataset
@@ -112,7 +112,8 @@ def wrangle_dallas_data():
     df = acquire_dallas.run()
     # prepare data
     df = prepare.run(df)
-    svi_features = pd.read_csv('svi_features.csv')
+    # merge in svi features
+    svi_features = pd.read_csv('svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     # split dataset
     target_var = 'tract_cases_per_100k'
@@ -138,7 +139,9 @@ def wrangle_countylevelonly_data():
     df = acquire_all_counties.get_countylevelonly_data()
     # prepare data
     df = prepare_counties.prepare_countylevelonly_data(df)
-
+    # merge in svi features
+    svi_features = pd.read_csv('svi_features.csv', index_col=0)
+    df = pd.merge(df, svi_features, on='tract')
     # split dataset
     target_var = 'tract_cases_per_100k'
     train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
