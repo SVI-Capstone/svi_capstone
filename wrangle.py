@@ -74,7 +74,7 @@ def scale_data_centroid(X_train, X_test):
     X_train,
     X_test,
     scaler = sklearn.preprocessing.MinMaxScaler(),
-    columns_to_scale=['centroid_spl_theme1', 'centroid_ep_pov', 'centroid_e_pov'])
+    columns_to_scale=['poverty_cluster'])
     return X_train_scaled, X_test_scaled
 
 
