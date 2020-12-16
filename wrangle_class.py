@@ -171,8 +171,8 @@ def wrangle_data_class():
     print(X_train.shape, X_test.shape)
 
    # drop rows not needed for modeling
-    X_train = X_train.drop(columns=['tract','zip','bin_svi'])
-    X_test = X_test.drop(columns=['tract','zip','bin_svi'])
+    X_train = X_train.drop(columns=['tract','zip','bin_svi', 'bin_cases'])
+    X_test = X_test.drop(columns=['tract','zip','bin_svi', 'bin_cases'])
     
     # df is now ready to scale
     X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
