@@ -123,8 +123,8 @@ def wrangle_dallas_data():
     X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
 
     # drop rows now scaled from scaled dataframes
-    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
-    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi', 'spl_theme1', 'ep_pov', 'e_pov'])
+    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi', 'spl_theme1', 'ep_pov', 'e_pov'])
     
     return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
 
