@@ -68,11 +68,11 @@ def scale_data(X_train, X_test):
     columns_to_scale=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi', 'spl_theme1', 'ep_pov', 'e_pov'])
     return X_train_scaled, X_test_scaled
 
-def scale_data_centroid(X_train, X_test):
+def scale_data_centroid(X_train_scaled, X_test_scaled):
     """This function provides the inputs and runs the add_scaled_columns function"""
     X_train_scaled, X_test_scaled = add_scaled_columns(
-    X_train,
-    X_test,
+    X_train_scaled,
+    X_test_scaled,
     scaler = sklearn.preprocessing.MinMaxScaler(),
     columns_to_scale=['poverty_cluster'])
     return X_train_scaled, X_test_scaled
