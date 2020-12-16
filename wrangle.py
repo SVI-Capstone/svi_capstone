@@ -40,6 +40,28 @@ def split(df, target_var):
     
     return train_exp, X_train, y_train, X_test, y_test
 
+def split_class(df, target_var):
+    '''
+    This splits the dataframe for train, validate, and test, and creates X and y dataframes for each
+    '''
+    # split df into train (80%) and test (20%)
+    # cross validation with be used instead of a validate dataset
+    train, test = train_test_split(df, test_size=.20, random_state = 123, stratify=df.rank_cases)
+    
+    # for explore create copy of train without x/y split
+    train_exp = train.copy()
+
+    # create X_train by dropping the target variable 
+    X_train = train.drop(columns=[target_var])
+    # create y_train by keeping only the target variable.
+    y_train = train[[target_var]]
+
+    # create X_test by dropping the target variable 
+    X_test = test.drop(columns=[target_var])
+    # create y_test by keeping only the target variable.
+    y_test = test[[target_var]]
+    
+    return train_exp, X_train, y_train, X_test, y_test
 
 ######## Scale #########
 
@@ -175,7 +197,7 @@ def wrangle_data_class():
     
     # split dataset
     target_var = 'rank_cases'
-    train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
+    train_exp, X_train, y_train, X_test, y_test = split_class(df, target_var)
     print(X_train.shape, X_test.shape)
 
    # drop rows not needed for modeling
