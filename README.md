@@ -104,10 +104,10 @@ After it was identified that unique flags might be used to better identify group
 ### Model
 Two rounds of modeling were performed during this investigation.  The first being a regression model that assessed SVI's impact on the prediction of COVID cases per 100k, and the second being a classification model that assessed SVI's impact on case rank (defined as low, low_mod, mod_high, high). 
 
-*Regression Model*
+*Regression Model*   
 The mean value for COVID cases per 100k was identified as the baseline for modeling. We used cross-validation instead of a three-way split into train, validate, and test datasets due to the dataset's limited size. The size of the dataset is limited by the number of census tracts in each city. Linear Regression and LassoLars algorithms were used to evaluate multiple combinations of feature selection. Of these, the LassoLars had the least MAE (mean absolute error) when using all of the possible features and was run on the out of sample (test) data. The MAE of a model is the mean of the individual prediction errors' absolute values over all instances in the test set. We chose to assess model performance in terms of MAE due to its ease of interpretation. San Antonio's top-performing model was a TweedieRegressor, using Top 4 features as identified by RFE. The model demonstrated a 21% improvement over baseline. Dallas' top-performing model was also a TweedieRegressor, using Top 4 features as determined by RFE. The model showed a 2% improvement over baseline.  
 
-*Classification Model*
+*Classification Model*   
 
 ### Conclusions
 **1. Is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?**
