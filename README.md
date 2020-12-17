@@ -42,10 +42,14 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | Regression | A predictive modeling technique investigating the relationship between a dependent (*target*) and independent variable(s) (*predictor*)                      
 | LassoLars Model | Algorithm that performs both feature selection (LASSO) and noise reduction within the same model.|
 | Algorithm | A process or set of rules to be followed in calculations or other problem-solving operations, especially by a computer. |
+| Clustering| Clustering is an unsupervised process of grouping similar observations or objects together. In this process similarities are based on comparing a vector of information for each observation or object, often using various mathematical distance functions.|
 | Target Variable | Dependent variable: The feature the model predicts ***(COVID Infection Count)*** |
 | Predictive Variable | Independent variable: The features used to create the prediction |
 | SVI flag | For a theme, the flag value is the number of flags for variables comprising the theme. We calculated the overall flag value for each tract as the number of all variable flags (Tracts in the top 10%, i.e., at the 90th percentile of values).  |
-| f_pov_soci | Flag - the percentage of person in poverty is in the 90th percentile nationally (1= yes, 0 = no)                                                   | f_unemp_soci | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
+| e_pov | Persons below poverty estimate |
+| ep_pov | Percent persons below poverty estimate |
+| spl_theme1 | Sum of series for socioeconomic theme |
+| f_pov_soci | Flag - the percentage of person in poverty is in the 90th percentile nationally (1= yes, 0 = no) |                                                   | f_unemp_soci | Flag - the percentage of civilian unemployed is in the 90th percentile nationally (1= yes, 0 = no) |
 | f_pci_soci | Flag - per capita income is in the bottom 90th percentile nationally (1= yes, 0 = no)|
 | f_nohsdp_soci | Flag - the percentage of persons with no high school diploma is in the 90th percentile nationally (1= yes, 0 = no)|
 | f_soci_total | Sum of flags for Socioeconomic Status theme|
@@ -81,8 +85,6 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 4. Are the individual components of SVI better at predicting COVID cases, then the rank score?
 
 5. Are the features identified in modeling consistent across communities (similar size and SVI score)? 
-
-6. For a defined community, is SVI better at predicting COVID cases by census tracts with overall high/med/low SVI scores? [Post MVP]
 
 ## Project Steps
 ### Acquire
