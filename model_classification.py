@@ -308,7 +308,7 @@ def test_logistic_regression(X_test, y_test, T_bow, T_tfidf, lm_bow, lm_tfidf):
 
 
 def random_forest_class(X, y, k):
-#     # Setting the features:
+    # Setting the features:
     X_train_rf = X
     y_train_rf = y
 
