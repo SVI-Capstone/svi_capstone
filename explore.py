@@ -117,9 +117,9 @@ def my_plotter(df, col_x, col_x_title, col_y, col_y_title, hue = "bin_svi"):
     Note that col_x, col_y, col_x_title and col_y_title MUST BE STRINGS.
     '''
         
-    p = sns.jointplot(x = col_x, y = col_y, data = df, hue = hue, height = 8, size = 10)
+    p = sns.jointplot(x = col_x, y = col_y, data = df, hue = hue, height = 8, size = 10, xlim = (-1,12),ylim = (-500,12800))
     p.fig.suptitle(f'{col_x_title} vs {col_y_title}', fontsize = 20, fontweight = 'bold')
-    p.set_axis_labels(f'{col_x_title}', f'{col_y_title}', fontweight = 'bold')
+    p.set_axis_labels(f'{col_x_title}', f'{col_y_title}', fontweight = 'bold',labelpad=20)
     p.fig.tight_layout()
     # p.fig.subplots_adjust(top=0.95) # Reduce plot to make room 
     plt.savefig("jointplot_columns")
