@@ -331,7 +331,7 @@ def random_forest_class(X, y, max_depth = 4, n_estimators = 100, ):
     y_pred_proba_rf = rf.predict_proba(X_train_rf)
     
     # Cross Validation:
-    rfc_cv_score = cross_val_score(rf, X_train_rf, y_train_rf, cv=10, scoring='accuracy')
+    rfc_cv_score = cross_val_score(rf, X_train_rf, y_train_rf, cv=10, scoring='roc_auc_ovr')
     
     print('Accuracy of Random Forest Model on training set: {:.2f}'
      .format(rf.score(X_train_rf, y_train_rf)))
