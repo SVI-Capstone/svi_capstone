@@ -132,6 +132,7 @@ def cluster_scatter(df, title, col_x, col_x_title, col_y, col_y_title, hue = "bi
     Note that col_x, col_y, col_x_title and col_y_title MUST BE STRINGS.
     '''
     plt.figure(figsize=(12,8))
+    plt.rc('font', size=16)
     sns.scatterplot(x= col_x, 
                     y= col_y,
                     data = df, hue= hue,
