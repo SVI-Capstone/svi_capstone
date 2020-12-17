@@ -154,7 +154,7 @@ def sns_boxplot_hypothesis(dfx, dfy, xlabel, ylabel, title):
     plt.title(title)
     plt.xlabel(xlabel,labelpad=20)
     plt.ylabel(ylabel,labelpad=20)
-    plt.ylim([-100, 10000])
+    plt.ylim([-500, 12000])
     plt.tight_layout()
     plt.show()
     
