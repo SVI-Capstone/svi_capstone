@@ -58,11 +58,11 @@ def joint_plot_flag(x,y,df,hue):
                         hue = hue, 
                         height = 10,
                         space = 0,
-                        xlim =(-1,10),)
+                        xlim = (-1,12),
+                        ylim = (-500,12800))
     ax2.ax_joint.set_xlabel('Total Number of Flags', fontweight='bold', fontsize = 14,labelpad=20)
     ax2.ax_joint.set_ylabel('Cases by Tract per 100k', fontweight='bold', fontsize = 14,labelpad=20)
     ax2.fig.suptitle("Distribution of Cases and SVI Flags", fontweight='bold', fontsize = 20)
-
     ax2.fig.tight_layout()
     plt.show()
 
