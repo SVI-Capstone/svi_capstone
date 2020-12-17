@@ -1,4 +1,4 @@
-,tract,rising,falling,delta,mean,r_soci_rise,r_comp_rise,r_status_rise,r_trans_rise,r_soci_fall,r_comp_fall,r_status_fall,r_trans_fall
+,tract,rising,falling,delta,avg3yr,r_soci_rise,r_comp_rise,r_status_rise,r_trans_rise,r_soci_fall,r_comp_fall,r_status_fall,r_trans_fall
 40,48001950500,0,0,0.08289999999999997,0.8522333333333334,0,0,1,0,0,0,0,0
 41,48001950600,0,0,0.06630000000000003,0.642,0,0,1,0,0,0,0,0
 42,48001950800,1,0,0.19490000000000002,0.5270333333333334,1,0,1,0,0,0,0,1
