@@ -46,7 +46,8 @@ def joint_plot_index(x,y,df,hue):
                        space = 0)
     ax.ax_joint.set_xlabel("SVI Index Value", fontweight='bold', fontsize = 14, labelpad=20)
     ax.ax_joint.set_ylabel('Cases by Tract per 100k', fontweight='bold', fontsize = 14, labelpad=20)
-    ax.fig.suptitle("Distribution of Cases and SVI Score", fontweight='bold', fontsize = 20)    
+    ax.fig.suptitle("Distribution of Cases and SVI Score", fontweight='bold', fontsize = 20)  
+    ax.ax_joint.set_ylim(-500,12000)  
     ax.fig.tight_layout()
     plt.show()
 
