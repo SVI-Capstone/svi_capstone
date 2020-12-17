@@ -39,8 +39,8 @@ def random_forest_class(X, y, max_depth = 4, n_estimators = 100):
     rfc_cv_score = cross_val_score(rf, X_train_rf, y_train_rf, cv=10, scoring='accuracy')
     print(f'RF CV scores mean: {round(rfc_cv_score.mean(), 2)}')
     
-    print('Accuracy of Random Forest Model on training set: {:.2f}'
-     .format(rf.score(X_train_rf, y_train_rf)))
+    # print('Accuracy of Random Forest Model on training set: {:.2f}'
+    #  .format(rf.score(X_train_rf, y_train_rf)))
     
 #     print("=== Confusion Matrix ===")
 #     print(confusion_matrix(y_train_rf, y_pred_rf))
@@ -53,7 +53,6 @@ def random_forest_class(X, y, max_depth = 4, n_estimators = 100):
 #     print('\n')
 #     print("=== Mean AUC Score ===")
 #     print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
-    print("\n\nArray of cross validation scores:")
     return rfc_cv_score.mean()
 
 
@@ -93,3 +92,37 @@ def knn_classification(X_train_knn, y_train_knn, n_neighbors=5, cv = 5):
     
     return knn_cv_scores.mean()
 
+# RF test function:
+
+def rf_test_class(X, y, X_test, y_test, max_depth = 4, n_estimators = 100):
+    # Setting the features:
+    X_train_rf = X
+    y_train_rf = y
+    
+    
+
+    # Using Random Forest Model
+    rf = RandomForestClassifier(bootstrap=True, 
+                                class_weight=None, 
+                                criterion='gini',
+                                min_samples_leaf=3,
+                                n_estimators = n_estimators,
+                                max_depth = max_depth, 
+                                random_state=123)
+
+    # Fitting the model using the train data:
+    rf.fit(X_train_rf, y_train_rf)
+
+    # Making prediction:
+    y_pred_rf = rf.predict(X_test)
+    
+    # Estimating the case count bin using the training dataset:
+#     y_pred_proba_rf = rf.predict_proba(X_test)
+
+    
+    rf_score = rf.score(X_test, y_test)
+    
+    print('Accuracy of Random Forest Model on test set: {:.2f}'
+     .format(rf.score(X_test, y_test)))
+
+    return rf_score
