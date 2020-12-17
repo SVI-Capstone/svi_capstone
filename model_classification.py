@@ -307,7 +307,7 @@ def test_logistic_regression(X_test, y_test, T_bow, T_tfidf, lm_bow, lm_tfidf):
     print("TF-IDF Logistic Regression Classification Report:\n", classification_report(y_test, X_test.pred_tfidf))
 
 
-def random_forest_class(X, y, k):
+def random_forest_class(X, y, max_depth = 4, n_estimators = 100, ):
     # Setting the features:
     X_train_rf = X
     y_train_rf = y
@@ -317,8 +317,8 @@ def random_forest_class(X, y, k):
                                 class_weight=None, 
                                 criterion='gini',
                                 min_samples_leaf=3,
-                                n_estimators=100,
-                                max_depth=k, 
+                                n_estimators = n_estimators,
+                                max_depth = max_depth, 
                                 random_state=123)
 
     # Fitting the model using the train data:
@@ -348,4 +348,4 @@ def random_forest_class(X, y, k):
     print("=== Mean AUC Score ===")
     print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
 
-    return rf, y_pred_rf, y_pred_proba_rf
+    return rf.score(X_train_rf, y_train_rf)
