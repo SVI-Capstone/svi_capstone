@@ -72,6 +72,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | bin_svi | raw_svi percentages broken up in to categories based on CDC precedent  *low* < 0.27, *low_med* > 0.27 and < 0.50, *med_high* > 0.50 and < 0.75, *high* < 0.75 |                
 | rank_svi | raw_svi percentages broken up in to categories based on bin_svi  *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
 | Mean Absolute Error (MAE) | MAE measures the average magnitude of the errors in a set of predictions without considering their direction. It's the average over the test sample of the absolute differences between prediction and actual observation where all individual differences have equal weight. |
+| Centroid | One of the cluster centers in a K-Means clustering |
   ---                                ---
 
 ## Initial Thoughts & Hypotheses
