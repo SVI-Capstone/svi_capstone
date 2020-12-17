@@ -30,6 +30,7 @@ def sns_boxplot(train_exp):
     plt.title('December 8th COVID-19 Cases per 100K by SVI Range Category')
     plt.xlabel("CDC's SVI Range Category",labelpad=20)
     plt.ylabel("Cases by Tract per 100k",labelpad=20)
+    plt.ylim([-100, 10000])
     plt.tight_layout()
     plt.show()
 
