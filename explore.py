@@ -102,6 +102,8 @@ def hist_case_title(series, title):
     # plt.text(series.median()*.25, max_ylim_v*0.9, 'Median: {:.2f}'.format(series.median()))
     plt.grid(b = True, alpha = .45)
     # plt.figure(figsize = (16, 9))
+    plt.ylim([0, 100])
+    plt.xlim([0, 12000])
     plt.tight_layout()
     plt.show()
 
