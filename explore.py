@@ -116,7 +116,6 @@ def my_plotter(df, col_x, col_x_title, col_y, col_y_title, hue = "bin_svi"):
     You must input the x and y columns, x and y column names, the source dataframe, and the column by which the data has been binned.
     Note that col_x, col_y, col_x_title and col_y_title MUST BE STRINGS.
     '''
-        
     p = sns.jointplot(x = col_x, y = col_y, data = df, hue = hue, height = 8, size = 10, xlim = (-1,12),ylim = (-500,12800))
     p.fig.suptitle(f'{col_x_title} vs {col_y_title}', fontsize = 20, fontweight = 'bold')
     p.set_axis_labels(f'{col_x_title}', f'{col_y_title}', fontweight = 'bold',labelpad=20)
@@ -125,6 +124,25 @@ def my_plotter(df, col_x, col_x_title, col_y, col_y_title, hue = "bin_svi"):
     plt.savefig("jointplot_columns")
     plt.show()
     return p
+
+def cluster_scatter(df, title, col_x, col_x_title, col_y, col_y_title, hue = "bin_svi"):
+    '''
+    This function will return a scatterplot with formatting. 
+    You must input the x and y columns, x and y column names, the source dataframe, and the column by which the data has been binned.
+    Note that col_x, col_y, col_x_title and col_y_title MUST BE STRINGS.
+    '''
+    plt.figure(figsize=(12,8))
+    sns.scatterplot(x= col_x, 
+                    y= col_y,
+                    data = df, hue= hue,
+                    legend = True)
+    plt.rc('font', size=16)
+    plt.title(title)
+    plt.ylabel(col_y_title,labelpad=20)
+    plt.xlabel(col_x_title,labelpad=20)
+    plt.ylim([-1000, 15000])
+    plt.tight_layout()
+    plt.show()
 
 ############################################################ Hypothesis Testing ############################################################
 
