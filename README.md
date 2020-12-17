@@ -73,6 +73,18 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 | rank_svi | raw_svi percentages broken up in to categories based on bin_svi  *low* = 4, *low_med* = 3, *med_high* = 2, *high* = 1 |
 | Mean Absolute Error (MAE) | MAE measures the average magnitude of the errors in a set of predictions without considering their direction. It's the average over the test sample of the absolute differences between prediction and actual observation where all individual differences have equal weight. |
 | Centroid | One of the cluster centers in a K-Means clustering |
+| rising | Raw svi score 2018>2016>2014 (getting more vulnerable), bool |
+| falling | Raw svi score 2018<2016<2014 (getting less vulnerable), bool |
+| delta | Change in raw svi score from 2014 to 2018, float |
+| avg3yr | Added raw svi for 2018, 2016, 2014 and divided by 3, float |
+| r_soci_rise | Raw score for socioeconomic subgroup rising (getting more vulnerable) year over year, bool |
+| r_comp_rise | Raw score for household compensation and disability subgroup rising (getting more vulnerable) year over year, bool |
+| r_status_rise | Raw score for minority and language subgroup rising (getting more vulnerable) year over year, bool |
+| r_trans_rise | Raw score for transportation and housing type subgroup rising (getting more vulnerable) year over year, bool |
+| r_soci_fall | Raw score for socioeconomic subgroup falling (getting less vulnerable) year over year, bool |
+| r_comp_fall | Raw score for household compensation and disability subgroup falling (getting less vulnerable) year over year, bool |
+| r_status_fall | Raw score for minority and language subgroup falling (getting less vulnerable) year over year, bool |
+| r_trans_fall | Raw score for transportation and housing type subgroup falling (getting less vulnerable) year over year, bool |
   ---                                ---
 
 ## Initial Thoughts & Hypotheses
