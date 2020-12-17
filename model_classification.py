@@ -332,20 +332,23 @@ def random_forest_class(X, y, max_depth = 4, n_estimators = 100, ):
     
     # Cross Validation:
     rfc_cv_score = cross_val_score(rf, X_train_rf, y_train_rf, cv=10, scoring='roc_auc_ovr')
+    print(f'RF CV scores mean: {round(rfc_cv_score.mean(), 2)}')
     
     print('Accuracy of Random Forest Model on training set: {:.2f}'
      .format(rf.score(X_train_rf, y_train_rf)))
     
-    print("=== Confusion Matrix ===")
-    print(confusion_matrix(y_train_rf, y_pred_rf))
-    print('\n')
-    print("=== Classification Report ===")
-    print(classification_report(y_train_rf, y_pred_rf))
-    print('\n')
-    print("=== All AUC Scores ===")
-    print(rfc_cv_score)
-    print('\n')
-    print("=== Mean AUC Score ===")
-    print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
+#     print("=== Confusion Matrix ===")
+#     print(confusion_matrix(y_train_rf, y_pred_rf))
+#     print('\n')
+#     print("=== Classification Report ===")
+#     print(classification_report(y_train_rf, y_pred_rf))
+#     print('\n')
+#     print("=== All AUC Scores ===")
+#     print(rfc_cv_score)
+#     print('\n')
+#     print("=== Mean AUC Score ===")
+#     print("Mean AUC Score - Random Forest: ", rfc_cv_score.mean())
+    print("\n\nArray of cross validation scores:")
+    return rfc_cv_score
 
-    return rf.score(X_train_rf, y_train_rf)
+    return rfc_cv_score.mean()
