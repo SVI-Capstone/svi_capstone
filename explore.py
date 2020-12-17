@@ -145,6 +145,19 @@ def cluster_scatter(df, title, col_x, col_x_title, col_y, col_y_title, hue = "bi
     plt.tight_layout()
     plt.show()
 
+def sns_boxplot_hypothesis(dfx, dfy, xlabel, ylabel, title):
+    '''create boxplot for hypothesis test exploration
+    '''
+    plt.figure(figsize=(12,8))
+    plt.rc('font', size=16)
+    sns.boxplot(x= dfx, y=dfy)
+    plt.title(title)
+    plt.xlabel(xlabel,labelpad=20)
+    plt.ylabel(ylabel,labelpad=20)
+    plt.ylim([-100, 10000])
+    plt.tight_layout()
+    plt.show()
+    
 ############################################################ Hypothesis Testing ############################################################
 
 def kruskal_test(avg_var1, avg_var2, avg_var3, avg_var4, null, alternate, alpha):
@@ -228,10 +241,13 @@ def elbow_plot(X_train_scaled, cluster_vars):
     print(pd.DataFrame(dict(k=ks, sse=sse)))
 
     # plot k with inertia
+    plt.figure(figsize=(12,8))
+    plt.rc('font', size=16)
     plt.plot(ks, sse, 'bx-')
-    plt.xlabel('k')
-    plt.ylabel('SSE')
-    plt.title('Elbow method to find optimal k')
+    plt.xlabel('k',labelpad=20)
+    plt.ylabel('SSE',labelpad=20)
+    plt.title('Elbow Method to Find Optimal k')
+    plt.tight_layout()
     plt.show()
 
 ##################################################################################################################
