@@ -192,8 +192,8 @@ def wrangle_data_class():
     svi_features = pd.read_csv('svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     # bin the new y variable
-    df['bin_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 2500, 5000, 7500, 10000], labels = ['low', 'low_mod', 'mod_high', 'high'])
-    df['rank_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 2500, 5000, 7500, 10000], labels = [4, 3, 2, 1])
+    df['bin_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 1500, 3000, 4500, 9000], labels = ['low', 'low_mod', 'mod_high', 'high'])
+    df['rank_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 1500, 3000, 4500, 9000], labels = [4, 3, 2, 1])
     
     # split dataset
     target_var = 'rank_cases'
