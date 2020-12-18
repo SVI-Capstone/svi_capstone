@@ -128,3 +128,9 @@ def run():
     df = compile_san_antonio_data()
     print("Acquire: Completed!")
     return df
+
+def run_dallas():
+    print("Acquire: compiling raw data files...")
+    df = compile_dallas_data()
+    print("Acquire: Completed!")
+    return df
