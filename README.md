@@ -133,11 +133,11 @@ For the classification model, we ran a series of classification models using the
 
 **3. Is SVI a useful feature for predicting the number of cases per 100k?**
 
-- *Yes, in San Antonio*. Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k 22% better than baseline. 
+- *Yes, in San Antonio*. Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (21%). 
 
-- *No, in Dallas.*  No regression model using SVI as a feature was able to predict the number of cases per 100k better than baseline.
+- *Yes, in Dallas*.  Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (2%).
 
-This observation suggests that while there are correlations between SVI scores and cases per 100k in Dallas, those correlations are not as aligned by SVI scores observed in San Antonio.  Further investigation into the socioeconomic disparity in San Antonio might provide insight into other corollary factors at play. 
+This observation suggests that while there are statistically significant correlations between SVI score and cases per 100k in San Antonio and Dallas, the SVI score's predictive power is more significant in San Antonio.  Further investigation is necessary to explain this disparity.  
 
 **4. Are the individual components of SVI better at predicting COVID cases than the rank score?**
 - RFE identified rank SVI as the most significant feature in predicting COVID cases.  However, four individual flags (community characteristics) also demonstrated significant importance in model accuracy.  In San Antonio, these features included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, general unemployment. Even though the model was unable to beat the baseline in Dallas, it did identify several features that also demonstrated significant importance.  These features included belonging to a minority population, over 25 years of age with no high school diploma, and being identified as having limited English proficiency (LEP).
