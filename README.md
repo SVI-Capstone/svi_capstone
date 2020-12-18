@@ -32,6 +32,8 @@ Separated by 274 miles San Antonio and Dallas are two cities that share both com
 Thank you to the Codeup faculty and staff that have helped us every step of the way.  Also thank you to our friends and family who have supported us on this 22 week journey.  
 
 ## Data Dictionary
+
+(Click on link to see full dictionary)[https://github.com/SVI-Capstone/svi_capstone/blob/main/data_dictionary.md]
   ---                                ---
 | **Terms**                        | **Definition**        |
 | ---                              | ---                   |
