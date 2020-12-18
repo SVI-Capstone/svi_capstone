@@ -33,7 +33,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 ## Data Dictionary
 
-(Click on link to see full dictionary)[https://github.com/SVI-Capstone/svi_capstone/blob/main/data_dictionary.md]
+[Click on link to see full dictionary](https://github.com/SVI-Capstone/svi_capstone/blob/main/data_dictionary.md)
   ---                                ---
 | **Terms**                        | **Definition**        |
 | ---                              | ---                   |
