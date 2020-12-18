@@ -10,7 +10,7 @@ def get_san_antonio_data():
     '''
     This function reads the Bexar case data, normalizes headers, and returns dataframe
     '''
-    bexardf = pd.read_csv('Bexar_County_COVID-19_Data_by_Zip_Code.csv', index_col=0)
+    bexardf = pd.read_csv('data_csv_files/Bexar_County_COVID-19_Data_by_Zip_Code.csv', index_col=0)
     bexardf.columns = bexardf.columns.str.lower()
     bexardf = bexardf.rename(columns={'zip_code': 'zip', 'populationtotals_totpop_cy': 'population'})
     return bexardf
@@ -19,7 +19,7 @@ def get_sa_svi_data():
     '''
     This function reads the svi data, normalizes headers, and returns dataframe
     '''
-    svidf = pd.read_csv('san_antonio_2018_tract.csv')
+    svidf = pd.read_csv('data_csv_files/san_antonio_2018_tract.csv')
     svidf.columns = svidf.columns.str.lower()
     svidf = svidf.rename(columns={'fips': 'tract'})
     return svidf
@@ -28,7 +28,7 @@ def get_dallas_data():
     '''
     This function reads the Dallas case data, normalizes headers, and returns dataframe
     '''
-    dallasdf = pd.read_csv('dallas_zip_covid_8_8_2020.csv')
+    dallasdf = pd.read_csv('data_csv_files/dallas_zip_covid_8_8_2020.csv')
     dallasdf.columns = dallasdf.columns.str.lower()
     dallasdf = dallasdf.rename(columns={'zipcode': 'zip'})
     return dallasdf
@@ -37,7 +37,7 @@ def get_dallas_svi_data():
     '''
     This function reads the Dallas svi data, normalizes headers, and returns dataframe
     '''
-    svidf = pd.read_csv('dallas_2018_tract.csv')
+    svidf = pd.read_csv('data_csv_files/dallas_2018_tract.csv')
     svidf.columns = svidf.columns.str.lower()
     svidf = svidf.rename(columns={'fips': 'tract'})
     return svidf
@@ -56,7 +56,7 @@ def get_HUD(citydf):
     # # import track to zip dataframe
     # tracts = pd.read_csv('TRACT_ZIP_032019.csv')
     # import track to zip dataframe
-    zips = pd.read_csv('TRACT_ZIP_032019.csv')
+    zips = pd.read_csv('data_csv_files/TRACT_ZIP_032019.csv')
     #filter the zips df to only those in the city zip list
     zips = zips[zips.zip.isin(city_zip_list)]
     

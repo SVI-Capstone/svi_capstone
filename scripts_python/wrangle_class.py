@@ -8,11 +8,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler
 
 import sklearn
-import acquire
-import prepare
-import acquire_dallas
-import acquire_all_counties
-import prepare_counties
+from scripts_python import acquire
+from scripts_python import prepare
+from scripts_python import acquire_dallas
+from scripts_python import acquire_all_counties
+from scripts_python import prepare_counties
 
 #################### Wrangle ##################
 

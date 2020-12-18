@@ -8,11 +8,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import MinMaxScaler
 
 import sklearn
-import acquire
-import prepare
-import acquire_dallas
-import acquire_all_counties
-import prepare_counties
+from scripts_python import acquire
+from scripts_python import prepare
+from scripts_python import acquire_dallas
+from scripts_python import acquire_all_counties
+from scripts_python import prepare_counties
 
 #################### Wrangle ##################
 
@@ -107,7 +107,7 @@ def wrangle_data():
     # prepare data
     df = prepare.run(df)
     # merge in svi features
-    svi_features = pd.read_csv('svi_features.csv', index_col=0)
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     
     # split dataset
@@ -135,7 +135,7 @@ def wrangle_dallas_data():
     # prepare data
     df = prepare.run(df)
     # merge in svi features
-    svi_features = pd.read_csv('svi_features.csv', index_col=0)
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     # split dataset
     target_var = 'tract_cases_per_100k'
@@ -162,7 +162,7 @@ def wrangle_countylevelonly_data():
     # prepare data
     df = prepare_counties.prepare_countylevelonly_data(df)
     # merge in svi features
-    svi_features = pd.read_csv('svi_features.csv', index_col=0)
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     # split dataset
     target_var = 'tract_cases_per_100k'
@@ -189,7 +189,7 @@ def wrangle_data_class():
     # prepare data
     df = prepare.run(df)
     # merge in svi features
-    svi_features = pd.read_csv('svi_features.csv', index_col=0)
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
     # bin the new y variable
     df['bin_cases'] = pd.cut(df.tract_cases_per_100k, bins = [0, 1500, 3000, 4500, 9000], labels = ['low', 'low_mod', 'mod_high', 'high'])
@@ -221,7 +221,7 @@ def wrangle_dallas_data_class():
     # prepare data
     df = prepare.run(df)
     # merge in svi features
-    svi_features = pd.read_csv('svi_features.csv', index_col=0)
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
     df = pd.merge(df, svi_features, on='tract')
 
     # bin the new y variable
