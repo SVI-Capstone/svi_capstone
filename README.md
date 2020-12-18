@@ -131,17 +131,19 @@ For the classification model, we ran a series of classification models using the
 **2. Is there a correlation between raw_svi and the number of cases per 100k?**
 - Based on a Pearson R correlation test, we are 99% confident that there is a correlation between raw_svi and the number of cases per 100k in San Antonio and Dallas.  This correlation does not suggest causation yet describes a linear relationship that exists between the two features.  This relationship is characterized by a strong correlation in San Antonio (0.54) and a weaker yet still significant correlation in Dallas (0.19).   
 
-**3. Is SVI a useful feature for predicting the number of cases per 100k?**
+**3. Is SVI a useful feature for predicting the number of cases per 100k?**   
+   
+- *Yes, in San Antonio*. Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (21%).    
+   
+- *Yes, in Dallas*.  Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (2%).   
+   
+This observation suggests that while there are statistically significant correlations between SVI score and cases per 100k in San Antonio and Dallas, the SVI score's predictive power is more significant in San Antonio.  Further investigation is necessary to explain this disparity.     
 
-- *Yes, in San Antonio*. Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (21%). 
-
-- *Yes, in Dallas*.  Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (2%).
-
-This observation suggests that while there are statistically significant correlations between SVI score and cases per 100k in San Antonio and Dallas, the SVI score's predictive power is more significant in San Antonio.  Further investigation is necessary to explain this disparity.  
-
-**4. Are the individual components of SVI better at predicting COVID cases than the rank score?**
-- RFE identified rank SVI as the most significant feature in predicting COVID cases.  However, four individual flags (community characteristics) also demonstrated significant importance in model accuracy.  In San Antonio, these features included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, general unemployment. Even though the model was unable to beat the baseline in Dallas, it did identify several features that also demonstrated significant importance.  These features included belonging to a minority population, over 25 years of age with no high school diploma, and being identified as having limited English proficiency (LEP).
-
+**4. Are the individual components of SVI better at predicting COVID cases than the rank score?**    
+- *Yes, in San Antonio*, individual SVI components are better than the raw or binned score at predicting cases per 100k.  Three of the top features were derived from looking at how the SVI score has changed over time.  In San Antonio, the top four features identified as necessary in predicting count per 100k included total socioeconomic themes, the change in SVI for minority and language subgroups, the change in SVI status between 2014 – 2018, and the average SVI score between 2014 -2018.     
+   
+- *Yes, in Dallas*, individual SVI components are better than the raw or binned score at predicting cases per 100k.  In Dallas, the top four features identified as necessary in predicting count per 100k included the centroids of persons below poverty, percent of persons below poverty, and the scaled count of total socioeconomic themes.  The only significant factor that was not derived from clustering was derived from the SVI change over time, the difference in SVI for minority and language subgroup.     
+   
 **5. Are the features identified in modeling consistent across communities (similar size and SVI score)?**
 - In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, resources would be well allocated using the SVI index, but in Dallas, that correlation does not hold. For two cities with the same approximate SVI score and population, this is an interesting observation that will require further research to understand better. Regardless we hope that our work helps to better inform our local government about specific sub-populations where aid allocation should be prioritized.
 
