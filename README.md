@@ -45,7 +45,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 4. Are the individual components of SVI better at predicting COVID cases, then the rank score?
 
-5. Are the features identified in modeling consistent across communities (similar size and SVI score)? 
+5. Is the mobility of SVI score consistent across cities over time? 
 
 ## Project Steps
 ### Acquire
@@ -94,9 +94,26 @@ This observation suggests that while there are statistically significant correla
     
 These observations suggest that changes in SVI have a considerable influence on how our models perform.  Local governments should consider the shift in SVI score over time when thinking about the distribution of aid, as communities that have seen improvement in SVI scores between 2014-2018 are less likely to need the number of resources that communities with stagnant scores will require.  
     
-**5. Are the features identified in modeling consistent across communities (similar size and SVI score)?**
-- In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, resources would be well allocated using the SVI index, but in Dallas, that correlation does not hold. For two cities with the same approximate SVI score and population, this is an interesting observation that will require further research to understand better. Regardless we hope that our work helps to better inform our local government about specific sub-populations where aid allocation should be prioritized.
+**5. Is the mobility of SVI score consistent across cities over time??**    
 
+- 45% of the communities (tracts) in San Antonio are getting worse scores year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
+   
+- only 8% of the areas in San Antonio are seeing a year over year improvement in score vs. 13% of communities in Dallas   
+   
+   - key grouping in San Antonio that is getting worse year over year is socioeconomic subgroup    
+        San Antonio 38% getting worse vs. 30% in Dallas   
+        San Antonio only 13% of areas are improving vs 19% in Dallas   
+   
+   - Additional key group difference household composition   
+        San Antonio 30% getting worse vs. 25% in Dallas   
+        San Antonio 23% getting better vs. 28% getting better in Dallas   
+   
+-Things that might be impacting this   
+   - Dallas might have programs in place that San Antonio does not to assist these at risk areas   
+   - Redlining history and continued impact in San Antonio may be disproportionately effecting or stagnating improvements in areas in San Antonio   
+   
+In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, resources would be well allocated using the SVI index, but in Dallas, that correlation does not hold. For two cities with the same approximate SVI score and population, this is an interesting observation that will require further research to understand better. Regardless we hope that our work helps to better inform our local government about specific sub-populations where aid allocation should be prioritized.   
+   
 ## How to Reproduce
 ### Steps
 1. Obtain SVI data set from CDC website
