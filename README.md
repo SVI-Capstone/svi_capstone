@@ -96,9 +96,9 @@ These observations suggest that changes in SVI have a considerable influence on 
     
 **5. Is the mobility of SVI score consistent across cities over time??**    
 
-- 45% of the communities (tracts) in San Antonio are getting worse scores year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
+- Almost half (45%) of the communities (tracts) in San Antonio are getting worse scores year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
    
-- only 8% of the areas in San Antonio are seeing a year over year improvement in score vs. 13% of communities in Dallas   
+- Only 8% of the areas in San Antonio are seeing a year over year improvement in score vs. 13% of communities in Dallas   
    
    - key grouping in San Antonio that is getting worse year over year is socioeconomic subgroup    
         San Antonio 38% getting worse vs. 30% in Dallas   
@@ -108,7 +108,7 @@ These observations suggest that changes in SVI have a considerable influence on 
         San Antonio 30% getting worse vs. 25% in Dallas   
         San Antonio 23% getting better vs. 28% getting better in Dallas   
    
--Things that might be impacting this   
+- Things that might be impacting this   
    - Dallas might have programs in place that San Antonio does not to assist these at risk areas   
    - Redlining history and continued impact in San Antonio may be disproportionately effecting or stagnating improvements in areas in San Antonio   
    
