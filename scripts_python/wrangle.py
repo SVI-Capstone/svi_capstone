@@ -247,3 +247,58 @@ def wrangle_dallas_data_class():
     X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi', 'spl_theme1', 'ep_pov', 'e_pov'])
     
     return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
+
+def np_wrangle_data():
+    '''This function makes all necessary changes to the dataframe for exploration and modeling'''
+    # acquire data
+    df = acquire.compile_san_antonio_data()
+    # prepare data
+    df = prepare.prepare_data(df)
+    # merge in svi features
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
+    df = pd.merge(df, svi_features, on='tract')
+    
+    # split dataset
+    target_var = 'tract_cases_per_100k'
+    train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
+    #print(X_train.shape, X_test.shape)
+
+    # drop rows not needed for modeling
+    X_train = X_train.drop(columns=['tract','zip','bin_svi'])
+    X_test = X_test.drop(columns=['tract','zip','bin_svi'])
+    
+    # df is now ready to scale
+    X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
+
+    # drop rows now scaled from scaled dataframes
+    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi','spl_theme1', 'ep_pov', 'e_pov'])
+    
+    return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
+
+def np_wrangle_dallas_data():
+    '''This function makes all necessary changes to the dataframe for exploration and modeling'''
+    # acquire data
+    df = acquire_dallas.compile_dallas_data()
+    # prepare data
+    df = prepare.prepare_data(df)
+    # merge in svi features
+    svi_features = pd.read_csv('data_csv_files/svi_features.csv', index_col=0)
+    df = pd.merge(df, svi_features, on='tract')
+    # split dataset
+    target_var = 'tract_cases_per_100k'
+    train_exp, X_train, y_train, X_test, y_test = split(df, target_var)
+    #print(X_train.shape, X_test.shape)
+
+    # drop rows not needed for modeling
+    X_train = X_train.drop(columns=['tract','zip','bin_svi'])
+    X_test = X_test.drop(columns=['tract','zip','bin_svi'])
+    
+    # df is now ready to scale
+    X_train_scaled, X_test_scaled = scale_data(X_train, X_test)
+
+    # drop rows now scaled from scaled dataframes
+    X_train_scaled = X_train_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi', 'spl_theme1', 'ep_pov', 'e_pov'])
+    X_test_scaled = X_test_scaled.drop(columns=['f_soci_total', 'f_comp_total', 'f_status_total', 'f_trans_total', 'all_flags_total', 'rank_svi', 'spl_theme1', 'ep_pov', 'e_pov'])
+    
+    return df, train_exp, X_train_scaled, y_train, X_test_scaled, y_test
