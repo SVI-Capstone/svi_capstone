@@ -150,4 +150,3 @@ In San Antonio and Dallas, COVID cases per 100k are greatest in communities wher
 [Corey Solitaire](https://github.com/CSolitaire)  
 [Ryvyn Young](https://github.com/RyvynYoung)   
 [Luke Becker](https://github.com/lukewbecker)   
-
