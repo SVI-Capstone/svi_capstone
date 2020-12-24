@@ -53,3 +53,4 @@
 | r_status_fall | Raw score for minority and language subgroup falling (getting less vulnerable) year over year, bool |
 | r_trans_fall | Raw score for transportation and housing type subgroup falling (getting less vulnerable) year over year, bool |
   ---                                ---
+  
