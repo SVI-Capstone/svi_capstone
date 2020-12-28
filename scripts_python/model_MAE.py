@@ -223,7 +223,7 @@ def lasso_lars_test(x_scaleddf, target, X_test, y_test):
     lars_pred = lars.predict(X_test)
     # calculate MAE
     lars_MAE = mean_absolute_error(y_test, lars_pred)
-    return lars_MAE, lars
+    return lars_MAE, lars, lars_pred
 
 def linear_test(x_scaleddf, target, X_test, y_test):
     '''
@@ -237,7 +237,7 @@ def linear_test(x_scaleddf, target, X_test, y_test):
     y_hat = lm.predict(X_test)
     # calculate MAE
     LM_MAE = mean_absolute_error(y_test, y_hat)
-    return LM_MAE, lm
+    return LM_MAE, lm, y_hat
 
 
 def SVR_test(x_scaleddf, target, X_test, y_test, kern):
@@ -266,6 +266,18 @@ def tweedie_test(X_train, y_train, X_test, y_test, pwr, alf):
     tw_pred = tw.predict(X_test)
     # Compute root mean squared error
     tw_MAE = mean_absolute_error(y_test, tw_pred)
-    return tw_MAE, tw
+    return tw_MAE, tw, tw_pred
 
+
+def create_visualdf(y_test, y_train, y_test_predLL, y_test_predLR, y_test_predTW):
+    '''
+    creates dataframe for making visualizations
+    '''
+    visualdf = pd.DataFrame()
+    visualdf['actual'] = y_test.tract_cases_per_100k
+    visualdf['baseline'] = y_train.tract_cases_per_100k.mean()
+    visualdf['TWpred'] = y_test_predTW
+    visualdf['LRpred'] = y_test_predLR
+    visualdf['LLpred'] = y_test_predLL
+    return visualdf
 
