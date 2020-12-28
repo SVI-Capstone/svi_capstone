@@ -269,7 +269,7 @@ def tweedie_test(X_train, y_train, X_test, y_test, pwr, alf):
     return tw_MAE, tw, tw_pred
 
 
-def create_visualdf(y_test, y_train, y_test_predLL, y_test_predLR, y_test_predTW):
+def create_visualdf(y_test, y_train, y_test_predLL, y_test_predLR, y_test_predTW, y_test_predrTW):
     '''
     creates dataframe for making visualizations
     '''
@@ -279,6 +279,7 @@ def create_visualdf(y_test, y_train, y_test_predLL, y_test_predLR, y_test_predTW
     visualdf['TWpred'] = y_test_predTW
     visualdf['LRpred'] = y_test_predLR
     visualdf['LLpred'] = y_test_predLL
+    visualdf['SVI_only'] = y_test_predrTW
     return visualdf
 
 
@@ -293,11 +294,11 @@ def plot_actual_vs_predicted(visualdf):
     plt.plot(visualdf.actual, visualdf.actual, alpha=.5, color="blue", label='_nolegend_')
     #plt.annotate("The Ideal Line: Predicted = Actual", (.5, 1), rotation=15.5)
     #plt.subplot(1,3,1,)
-    # plt.scatter(visualdf.actual, visualdf.LRpred, 
-    #            alpha=.5, color="blue", s=50, label="Model: LinearRegression")
+    plt.scatter(visualdf.actual, visualdf.SVI_only, 
+               alpha=.5, color="blue", s=50, label="Model: TW SVI only")
     #plt.subplot(1,3,2)
     plt.scatter(visualdf.actual, visualdf.TWpred, 
-                alpha=.5, color="green", s=100, label="Model: TweedieRegressor")
+                alpha=.5, color="green", s=100, label="Model: TW Top 4 Features")
     #plt.subplot(1,3,3)
     # plt.scatter(visualdf.actual, visualdf.LLpred, 
     #           alpha=.5, color="orange", s=75, label="Model: LassoLars")
@@ -316,10 +317,10 @@ def plotting_errors(visualdf):
     # plotting Errors in Predictions
     plt.figure(figsize=(16,8))
     plt.axhline(label="No Error")
-    # plt.scatter(visualdf.actual, visualdf.LRpred-visualdf.actual, 
-    #             alpha=.5, color="blue", s=50, label="Model: LinearRegression")
+    plt.scatter(visualdf.actual, visualdf.SVI_only-visualdf.actual, 
+                alpha=.5, color="blue", s=50, label="Model: TW SVI only")
     plt.scatter(visualdf.actual, visualdf.TWpred-visualdf.actual, 
-                alpha=.5, color="green", s=100, label="Model: TweedieRegressor")
+                alpha=.5, color="green", s=100, label="Model: TW Top 4 Features")
     # plt.scatter(visualdf.actual, visualdf.LLpred-visualdf.actual, 
     #             alpha=.5, color="orange", s=75, label="Model: LassoLars")
     plt.legend()
@@ -337,9 +338,9 @@ def plotting_histograms(visualdf):
     '''
     plt.figure(figsize=(16,8))
     plt.hist(visualdf.actual, color='blue', alpha=.5, label="Actual Cases per 100K")
-    plt.hist(visualdf.LRpred, color='yellow', alpha=.5, label="Model: LinearRegression")
-    plt.hist(visualdf.TWpred, color='green', alpha=.5, label="Model: TweedieRegressor")
-    plt.hist(visualdf.LLpred, color='red', alpha=.5, label="Model: LassoLars")
+    plt.hist(visualdf.LRpred, color='orange', alpha=.5, label="Model: TW SVI only")
+    plt.hist(visualdf.TWpred, color='green', alpha=.5, label="Model: TW Top 4 Features")
+    #plt.hist(visualdf.LLpred, color='red', alpha=.5, label="Model: LassoLars")
     plt.xlabel("Actual Cases per 100K")
     plt.ylabel("predictions")
     plt.title("Comparing the Distributions of Actual vs Predicted Cases per 100K for the Best Performing Model")
