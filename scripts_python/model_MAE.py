@@ -337,12 +337,12 @@ def plotting_histograms(visualdf):
     Plots Histograms of top models, currently only shows actual vs best performing
     '''
     plt.figure(figsize=(16,8))
-    plt.hist(visualdf.actual, color='blue', alpha=.5, label="Actual Cases per 100K")
+    plt.hist(visualdf.actual, color='blue', alpha=.5, label="Actual Cases per 100K", histtype=u'step', linewidth=5)
     plt.hist(visualdf.LRpred, color='orange', alpha=.5, label="Model: TW SVI only")
     plt.hist(visualdf.TWpred, color='green', alpha=.5, label="Model: TW Top 4 Features")
     #plt.hist(visualdf.LLpred, color='red', alpha=.5, label="Model: LassoLars")
     plt.xlabel("Actual Cases per 100K")
     plt.ylabel("predictions")
-    plt.title("Comparing the Distributions of Actual vs Predicted Cases per 100K for the Best Performing Model")
+    plt.title("SVI alone is not enough")
     plt.legend()
     plt.show()
