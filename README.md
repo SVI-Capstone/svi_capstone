@@ -5,13 +5,13 @@ In 2011 The CDC created the social vulnerability index (SVI).  The SVI is a scal
   
 ### Goals
 
-*Goal # 1* - Evaluate the association between SVI score and COVID case count in San Antonio and Dallas, Texas.
+*Goal # 1* - Evaluate the association between SVI and COVID case count in San Antonio and Dallas, Texas.
 
-*Goal # 2* - Evaluate the correlation between raw SVI score and case count per 100k.
+*Goal # 2* - Evaluate the correlation between SVI and case count per 100k.
 
-*Goal # 3* - Compare and contrast the patterns observed between SVI score and COVID case count. 
+*Goal # 3* - Compare and contrast the patterns observed between SVI and COVID case count. 
 
-*Goal # 4* - Predict local communities most at risk for COVID infection using SVI score.
+*Goal # 4* - Predict local communities most at risk for COVID infection using SVI.
 
 *Goal # 5* - To identify subgroups inside identified communities that need particular attention or focused support.
 
@@ -20,7 +20,7 @@ The SVI (Social Vulnerability Index) was developed to help city governments and 
 
 While SVI was designed to help city governments respond to emergencies, the systems' efficacy has never been tested in response to a global pandemic. COVID-19 is a disease caused by a new coronavirus called SARS-CoV-2. WHO first learned of this new virus on 31 December 2019, following a report of a cluster of cases of 'viral pneumonia' in Wuhan, People's Republic of China. (World Health Organization, 2020). As of 9 December 2020, more than 68.4 million cases have been confirmed, with more than 1.56 million deaths attributed to COVID-19. 
 
-Separated by 274 miles San Antonio and Dallas are two cities that share both comparable population sizes and SVI scores. Cities will be evaluated separately and then together for comparison.  
+Separated by 274 miles San Antonio and Dallas are two cities that share both comparable population sizes and SVI's. Cities will be evaluated separately and then together for comparison.  
 
 ### Deliverables
 1. Model to predict COVID 19 symptomatic infection by census tract in San Antonio and Dallas, TX.
@@ -39,13 +39,13 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
    
 1. Is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?
 
-2. Is there a correlation between raw_svi and the number of cases per 100k?
+2. Is there a correlation between SVI and the number of cases per 100k?
 
 3. Is SVI a useful feature for predicting the number of cases per 100k?
 
 4. Are the individual components of SVI better at predicting COVID cases, then the rank score?
 
-5. Is the mobility of SVI score consistent across cities over time? 
+5. Is the mobility of SVI consistent across cities over time? 
 
 ## Project Steps
 ### Acquire
@@ -85,7 +85,7 @@ For the classification model, we ran a series of classification models using the
    
 - *Yes, in Dallas*.  Using a TweedieRegressor with SVI as a feature, our model can predict the number of cases per 100k better than baseline (2%).   
    
-This observation suggests that while there are statistically significant correlations between SVI score and cases per 100k in San Antonio and Dallas, the SVI score's predictive power is more significant in San Antonio.  Further investigation is necessary to explain this disparity.     
+This observation suggests that while there are statistically significant correlations between SVI and cases per 100k in San Antonio and Dallas, the SVI's predictive power is more significant in San Antonio.  Further investigation is necessary to explain this disparity.     
 
 **4. Are the individual components of SVI better at predicting COVID cases than the rank score?**    
 - *Yes, in San Antonio*, individual SVI components are better than the raw or binned score at predicting cases per 100k.  Three of the top features were derived from looking at how the SVI score has changed over time.  In San Antonio, the top four features identified as necessary in predicting count per 100k included total socioeconomic themes, the change in SVI for minority and language subgroups, the change in SVI status between 2014 – 2018, and the average SVI score between 2014 -2018.     
@@ -98,7 +98,7 @@ These observations suggest that changes in SVI have a considerable influence on 
 
 - Almost half (45%) of the communities (tracts) in San Antonio are getting worse scores year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
    
-- Only 8% of the areas in San Antonio are seeing a year over year improvement in score vs. 13% of communities in Dallas   
+- Only 8% of the areas in San Antonio are seeing a year over year improvement in SVI vs. 13% of communities in Dallas   
    
    - key grouping in San Antonio that is getting worse year over year is socioeconomic subgroup    
         San Antonio 38% getting worse vs. 30% in Dallas   
@@ -112,7 +112,7 @@ These observations suggest that changes in SVI have a considerable influence on 
    - Dallas might have programs in place that San Antonio does not to assist these at risk areas   
    - Redlining history and continued impact in San Antonio may be disproportionately effecting or stagnating improvements in areas in San Antonio   
    
-In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, resources would be well allocated using the SVI index, but in Dallas, that correlation does not hold. For two cities with the same approximate SVI score and population, this is an interesting observation that will require further research to understand better. Regardless we hope that our work helps to better inform our local government about specific sub-populations where aid allocation should be prioritized.   
+In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, resources would be well allocated using the SVI, but in Dallas, that correlation does not hold. For two cities with the same approximate SVI and population, this is an interesting observation that will require further research to understand better. Regardless we hope that our work helps to better inform our local government about specific sub-populations where aid allocation should be prioritized.   
    
 ## How to Reproduce
 ### Steps
