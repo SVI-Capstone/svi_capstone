@@ -88,15 +88,15 @@ For the classification model, we ran a series of classification models using the
 This observation suggests that while there are statistically significant correlations between SVI and cases per 100k in San Antonio and Dallas, the SVI's predictive power is more significant in San Antonio.  Further investigation is necessary to explain this disparity.     
 
 **4. Are the individual components of SVI better at predicting COVID cases than the rank score?**    
-- *Yes, in San Antonio*, individual SVI components are better than the raw or binned score at predicting cases per 100k.  Three of the top features were derived from looking at how the SVI score has changed over time.  In San Antonio, the top four features identified as necessary in predicting count per 100k included total socioeconomic themes, the change in SVI for minority and language subgroups, the change in SVI status between 2014 – 2018, and the average SVI score between 2014 -2018.     
+- *Yes, in San Antonio*, individual SVI components are better than the index at predicting cases per 100k.  Three of the top features were derived from looking at how the SVI score has changed over time.  In San Antonio, the top four features identified as necessary in predicting count per 100k included total socioeconomic themes, the change in SVI for minority and language subgroups, the change in SVI status between 2014 – 2018, and the average SVI between 2014 -2018.     
    
-- *Yes, in Dallas*, individual SVI components are better than the raw or binned score at predicting cases per 100k.  In Dallas, the top four features identified as necessary in predicting count per 100k included the centroids of persons below poverty, percent of persons below poverty, and the scaled count of total socioeconomic themes.  The only significant factor that was not derived from clustering was derived from the SVI change over time, the difference in SVI for minority and language subgroup.     
+- *Yes, in Dallas*, individual SVI components are better than the index at predicting cases per 100k.  In Dallas, the top four features identified as necessary in predicting count per 100k included the centroids of persons below poverty, percent of persons below poverty, and the scaled count of total socioeconomic themes.  The only significant factor that was not derived from clustering was derived from the SVI change over time, the difference in SVI for minority and language subgroup.     
     
 These observations suggest that changes in SVI have a considerable influence on how our models perform.  Local governments should consider the shift in SVI score over time when thinking about the distribution of aid, as communities that have seen improvement in SVI scores between 2014-2018 are less likely to need the number of resources that communities with stagnant scores will require.  
     
-**5. Is the mobility of SVI score consistent across cities over time??**    
+**5. Is the mobility of SVI consistent across cities over time??**    
 
-- Almost half (45%) of the communities (tracts) in San Antonio are getting worse scores year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
+- Almost half (45%) of the communities (tracts) in San Antonio are becomming more voulnerable year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
    
 - Only 8% of the areas in San Antonio are seeing a year over year improvement in SVI vs. 13% of communities in Dallas   
    
