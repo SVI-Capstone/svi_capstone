@@ -1,19 +1,17 @@
 # Evaluating the CDC's Social Vulnerability Index (SVI) as a tool to predict COVID infections in San Antonio and Dallas Texas
 
 ## About the Project
-In 2011 The CDC created the social vulnerability index (SVI).  The SVI is a scale that predicts the vulnerability of a population in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We evaluated the association between SVI score and COVID case count between San Antonio and Dallas, Texas.  Using modeling, we were able to identify localized community-specific and highly vulnerable subgroups.  It was observed that the most vulnerable subgroups in San Antonio included persons over 25 years of age with no high school diploma, minority status (non-white), institutional group homes, and those who are generally unemployed.  In Dallas, these groups focused on minority populations, those over 25 years of age with no high school diploma, and individuals that are identified as having limited English proficiency (LEP).  While SVI shared a strong correlation (.55) with COVID case count per 100k in San Antonio, this correlation was not observed in Dallas (.19).  This finding suggests that resources would be well allocated in San Antonio using the SVI index, but in Dallas, that correlation does not hold. We hope that our work helps to better inform our local government about specific sub-populations were aid allocation should be prioritized.
+In 2011 The CDC created the social vulnerability index (SVI). The SVI is a scale that predicts a population's vulnerability in the event of an emergency or natural disaster. COVID is the first global pandemic since the development of this measure. We evaluated the effectiveness of utilizing SVI as a tool to predict COVID case count per 100,000 individuals in San Antonio and Dallas, Texas. Using exploratory data analysis, we were able to identify localized community-specific and highly vulnerable subgroups and from them engineer features that were better than SVI at predicting case count. We found that the best indicator of case count in both cities was total socioeconomic need. Over-reliance on SVI during pandemic type natural disasters may lead to vulnerable populations missing out on critical resources.  With this in mind, we recommend targeting resources based on socioeconomic need, exploring additional cities to determine how predictive SVI is more broadly, and investigating underlying city differences that make SVI more or less predictive. 
   
 ### Goals
 
-*Goal # 1* - Evaluate the association between SVI and COVID case count in San Antonio and Dallas, Texas.
+*Goal # 1* - Evaluate the correlation between SVI and case count per 100k in San Antonio and Dallas, Texas.
 
-*Goal # 2* - Evaluate the correlation between SVI and case count per 100k.
+*Goal # 2* - Compare and contrast the patterns observed between SVI and COVID case count per city. 
 
-*Goal # 3* - Compare and contrast the patterns observed between SVI and COVID case count. 
+*Goal # 3* - Predict local communities most at risk for COVID infection.
 
-*Goal # 4* - Predict local communities most at risk for COVID infection using SVI.
-
-*Goal # 5* - To identify subgroups inside identified communities that need particular attention or focused support.
+*Goal # 4* - Identify key features necessary to identify communities in need of attention and or focused support.
 
 ### Background
 The SVI (Social Vulnerability Index) was developed to help city governments and first responders predict areas that are particularly vulnerable in emergencies to prioritize resources to help regions at high risk (CDC's Social Vulnerability Index, 2020). The CDC's Social Vulnerability Index (CDC SVI) uses 15 U.S. census variables to classify census tracts with a composite score between 0 and 1 (lower scores = less vulnerability, higher score = greater vulnerability. This score is calculated by first ranking every census tract, in every country, in every state, in the United States. Those ranked tracks are then broken up into four themes (socioeconomic status, household composition, disability, minority status and language, household type, and transportation) and reclassified.  This overall score is then tallied by summing the themed percentiles and ranked between 0 and 1.  
@@ -45,7 +43,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
 
 4. Are the individual components of SVI better at predicting COVID cases, then the rank score?
 
-5. Is the mobility of SVI consistent across cities over time? 
+5. How has SVI changed over time over time?
 
 ## Project Steps
 ### Acquire
@@ -66,7 +64,7 @@ Two rounds of modeling were performed during this investigation.  The first bein
 
 *Regression Model*     
    
-The mean value for COVID cases per 100k was identified as the baseline for modeling. We used cross-validation instead of a three-way split into train, validate, and test datasets due to the dataset's limited size. The size of the dataset is limited by the number of census tracts in each city. Linear Regression and LassoLars algorithms were used to evaluate multiple combinations of feature selection. Of these, the LassoLars had the least MAE (mean absolute error) when using all of the possible features and was run on the out of sample (test) data. The MAE of a model is the mean of the individual prediction errors' absolute values over all instances in the test set. We chose to assess model performance in terms of MAE due to its ease of interpretation. San Antonio's top-performing model was a TweedieRegressor, using Top 4 features as identified by RFE. The model demonstrated a 21% improvement over baseline. Dallas' top-performing model was also a TweedieRegressor, using Top 4 features as determined by RFE. The model showed a 2% improvement over baseline.  
+The mean value for COVID cases per 100k was identified as the baseline for modeling. We used cross-validation instead of a three-way split into train, validate, and test datasets due to the dataset's limited size. The size of the dataset is limited by the number of census tracts in each city. Linear Regression and LassoLars algorithms were used to evaluate multiple combinations of feature selection. Of these, the LassoLars had the least MAE (mean absolute error) when using all of the possible features and was run on the out of sample (test) data. The MAE of a model is the mean of the individual prediction errors' absolute values over all instances in the test set. We chose to assess model performance in terms of MAE due to its ease of interpretation. San Antonio's top-performing model was a TweedieRegressor, using Top 4 features as identified by RFE. The model demonstrated a 21% improvement over baseline. Dallas' top-performing model was also a TweedieRegressor, using Top 4 features as determined by RFE. The model showed a 3% improvement over baseline.  
 
 *Classification Model*      
    
@@ -94,7 +92,7 @@ This observation suggests that while there are statistically significant correla
     
 These observations suggest that changes in SVI have a considerable influence on how our models perform.  Local governments should consider the shift in SVI score over time when thinking about the distribution of aid, as communities that have seen improvement in SVI scores between 2014-2018 are less likely to need the number of resources that communities with stagnant scores will require.  
     
-**5. Is the mobility of SVI consistent across cities over time??**    
+**5. How has SVI changed over time over time?**    
 
 - Almost half (45%) of the communities (tracts) in San Antonio are becomming more voulnerable year over year from 2014 to 2018 vs. 39% of the communities in Dallas   
    
@@ -117,12 +115,7 @@ In San Antonio and Dallas, COVID cases per 100k are greatest in communities wher
 ## How to Reproduce
 [Click here for a step by step tutorial](https://github.com/SVI-Capstone/svi_capstone/blob/main/Instructions_to_reproduce.ipynb) 
 
-### Tools & Requirements
-1. Web-based interactive development environment
-2. County data of your choosing
-
 ## Sources
-
 [CDC's Social Vulnerability Index (SVI)](https://www.atsdr.cdc.gov/placeandhealth/svi/index.html)   
 - Centers for Disease Control and Prevention/ Agency for Toxic Substances and Disease Registry/ Geospatial Research, Analysis, and Services Program. CDC Social Vulnerability Index 2018 Database Texas. Accessed on 12-8-2020.
 
