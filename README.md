@@ -115,11 +115,7 @@ These observations suggest that changes in SVI have a considerable influence on 
 In San Antonio and Dallas, COVID cases per 100k are greatest in communities where most residents are of minority status and lack educational opportunities (individuals >25 and no diploma).  What is different about these two cities is the predictive ability SVI has on COVID case count.  In San Antonio, resources would be well allocated using the SVI, but in Dallas, that correlation does not hold. For two cities with the same approximate SVI and population, this is an interesting observation that will require further research to understand better. Regardless we hope that our work helps to better inform our local government about specific sub-populations where aid allocation should be prioritized.   
    
 ## How to Reproduce
-### Steps
-1. Obtain SVI data set from CDC website
-2. Obtain HUD crosswalk data set
-3. Identify COVID case count by county
-4. Run functions in notebook on county data set.  
+[Click here for a step by step tutorial](https://github.com/SVI-Capstone/svi_capstone/blob/main/Instructions_to_reproduce.ipynb) 
 
 ### Tools & Requirements
 1. Web-based interactive development environment
