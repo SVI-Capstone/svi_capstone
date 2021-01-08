@@ -125,9 +125,6 @@ In San Antonio and Dallas, COVID cases per 100k are greatest in communities wher
 [Dallas County COVID Data](https://www.dallascounty.org/covid-19/)   
 - Daily COVID counts by ZIP   
 
-[vLookup in Python ](https://www.geeksforgeeks.org/how-to-do-a-vlookup-in-python-using-pandas/)   
-- Converts FIPS to ZIP
-
 [HUD](https://www.huduser.gov/portal/datasets/usps_crosswalk.html)
 - Schema to correlate ZIP to Census tracts, FIPS codes, and CBSA's
 
