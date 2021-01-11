@@ -24,7 +24,9 @@ def get_county_data():
     # should probably add a date format check here
     
     # get svi .csv
-    svidf = pd.read_csv('SVI2018_us.csv')
+    svidf = pd.read_csv('data_csv_files/SVI2018_us.csv')
+    # rename FIPS to tract
+    svidf = svidf.rename(columns={'fips': 'tract'})
     # based on CDC info should drop tracts with 0 population
     svidf = svidf[svidf.E_TOTPOP != 0]
     # filter for selected state and county
@@ -33,7 +35,7 @@ def get_county_data():
     print(svidf.shape)
     
     # read the all counties COVID data .csv
-    casesdf = pd.read_csv('COVID20201208_county', index_col = 0)
+    casesdf = pd.read_csv('data_csv_files/COVID20201208_county', index_col = 0)
     # need state in title case for this dataset
     state_req2 = state_req.title()
     # filter for only the selected date, state, and county
@@ -43,7 +45,7 @@ def get_county_data():
     print(casesdf.shape)
     
     # read in full uszips.csv
-    zipsdf = pd.read_csv('uszips.csv')
+    zipsdf = pd.read_csv('data_csv_files/uszips.csv')
     # filter for selected state and county
     zipsdf = zipsdf[zipsdf.state_name == state_req2]
     zipsdf = zipsdf[zipsdf.county_name == county_req]
@@ -52,7 +54,7 @@ def get_county_data():
     print(zipsdf.shape)
 
     # get county population for requested state and county
-    county_pop = pd.read_csv('SVI2018_US_COUNTY.csv')
+    county_pop = pd.read_csv('data_csv_files/SVI2018_US_COUNTY.csv')
     # filter for requested state and county
     cpopdf = county_pop[county_pop.STATE == state_req]
     cpopdf = cpopdf[cpopdf.COUNTY == county_req]
@@ -76,7 +78,7 @@ def get_HUD(citydf):
     # # import track to zip dataframe
     # tracts = pd.read_csv('TRACT_ZIP_032019.csv')
     # import track to zip dataframe
-    zips = pd.read_csv('TRACT_ZIP_032019.csv')
+    zips = pd.read_csv('data_csv_files/TRACT_ZIP_032019.csv')
     #filter the zips df to only those in the city zip list
     zips = zips[zips.zip.isin(city_zip_list)]
     
@@ -105,8 +107,10 @@ def get_countylevelonly_data():
     # should probably add a date format check here
     
     # get svi .csv
-    svidf = pd.read_csv('SVI2018_US_COUNTY.csv')
+    svidf = pd.read_csv('data_csv_files/SVI2018_US_COUNTY.csv')
     svidf.columns = svidf.columns.str.lower()
+    # rename FIPS to tract
+    svidf = svidf.rename(columns={'fips': 'tract'})
     # based on CDC info should drop counties with 0 population
     # not needed no null population counties
     # filter for selected state and county
@@ -114,11 +118,11 @@ def get_countylevelonly_data():
     print(svidf.shape)
     
     # read the all counties COVID data .csv
-    casesdf = pd.read_csv('COVID20201208_county', index_col = 0)
+    casesdf = pd.read_csv('data_csv_files/us-countiesJan2021.csv')
     # need state in title case for this dataset
     state_req2 = state_req.title()
     # filter for only the selected date, state, and county
-    casesdf = casesdf[casesdf['date'] == date_req]
+    casesdf = casesdf[casesdf.date == date_req]
     casesdf = casesdf[casesdf.state == state_req2]
     print(casesdf.shape)
     # merge dataframes on county

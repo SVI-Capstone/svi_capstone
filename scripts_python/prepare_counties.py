@@ -200,7 +200,7 @@ def prepare_countylevelonly_data(df):
                     'calculated_cases',
                     'cases',
                     'tract_cases_per_100k',
-                    # 'tract',
+                    'tract',
                     # 'area_sqmi',
                     'rpl_themes',
                     'f_pov',
