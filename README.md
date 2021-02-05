@@ -35,7 +35,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
    
 ## Initial Thoughts & Hypotheses   
    
-1. Is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?
+1. Is the average number of COVID cases per 100k the same across CDC SVI Range Categories?
 
 2. Is there a correlation between SVI and the number of cases per 100k?
 
