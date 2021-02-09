@@ -23,7 +23,7 @@ def split(df, target_var):
     '''
     # split df into train (80%) and test (20%)
     # cross validation with be used instead of a validate dataset
-    train, test = train_test_split(df, test_size=.20, random_state = 123, stratify=df.rank_svi)
+    train, test = train_test_split(df, test_size =.20, random_state = 123, stratify = df.rank_svi)
     
     # for explore create copy of train without x/y split
     train_exp = train.copy()
