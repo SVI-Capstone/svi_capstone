@@ -35,7 +35,7 @@ Thank you to the Codeup faculty and staff that have helped us every step of the 
    
 ## Initial Thoughts & Hypotheses   
    
-1. Is the average number of COVID cases per 100k is the same across CDC SVI Range Categories?
+1. Is the average number of COVID cases per 100k the same across CDC SVI Range Categories?
 
 2. Is there a correlation between SVI and the number of cases per 100k?
 
@@ -130,6 +130,12 @@ In San Antonio and Dallas, COVID cases per 100k are greatest in communities wher
 
 [World Health Organization: COVID-19](https://www.who.int/emergencies/diseases/novel-coronavirus-2019)
 - WHO website and resource on COVID - 19
+
+
+## Virtual Presentation
+
+[Click here for a virtual presentation of our project](https://youtu.be/WGvkiTRq1GY) 
+
 
 ## Creators
 
